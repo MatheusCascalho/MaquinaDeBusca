@@ -14,5 +14,5 @@ uma palavras aparece, menos importância ela terá para definir o assunto tratad
 
 ## Tarefas
 * Código que lê os arquivos e cria o índice invertido
-* * Ler cada palavra
-** Converter os caracteres maiusculos para minusculos
+ * Ler cada palavra
+ * Converter os caracteres maiusculos para minusculos
