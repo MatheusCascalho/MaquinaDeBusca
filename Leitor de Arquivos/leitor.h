@@ -49,6 +49,8 @@ class Indice {
 
 class Leitor {
     public:
+        //Convertr maiúsculas em minusculas e apaga acentuação
+        void padronizaLetra();
 
     private:
 };
