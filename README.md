@@ -13,15 +13,16 @@ IDF é a importancia da palavra t no documento. O que está expresso na formula 
 uma palavras aparece, menos importância ela terá para definir o assunto tratado na consulta.
 
 ## Tarefas
-* Código que lê os arquivos e cria o índice invertido (1 ponto)
-	* Ler cada palavra
-	* Converter os caracteres maiusculos para minusculos
-	* Apagar o espaço entre palavras compostas (guarda chuva -> guardachuva)
+* Código que lê os arquivos e cria o índice invertido (1 ponto) 
+	* Ler cada palavra - João 
+	* Converter os caracteres maiusculos para minusculos - Bruno
+	* Apagar o espaço entre palavras compostas (guarda chuva -> guardachuva) - Bruno
+	* Criar índice invertido - Cascalho
 * Estrutura de dados para armazenar as coordenadas dos documentos(map) (6 pontos)
 	* Implementar a função hash perfeita
-* Consulta (6 pontos)
+* Consulta (6 pontos) - Kethelen
 	* Implementar o método de consulta Ranking Cosseno
-		*Utilizar a estrutura map.
+		* Utilizar a estrutura map.
 * Teste unitario (8 pontos)
 	* Taxa de cobertura deve ser de 75%
 * Documentação (9 pontos)
