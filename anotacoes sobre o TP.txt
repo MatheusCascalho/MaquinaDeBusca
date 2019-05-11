@@ -1,15 +1,15 @@
-(1)funÁ„o adiciona na classe inice adiciona um objeto palavra ao Ìndice
+(1)fun√ß√£o adiciona() na classe inice adiciona um objeto palavra ao √≠ndice
 
-(2)classe Leitor ou Palavra deve conter uma funÁ„o que retorna um conjunto de arquivos em que a palavra aparece (Acho melhor em Leitor).
+(2)classe Leitor ou Palavra deve conter uma fun√ß√£o que retorna um conjunto de arquivos em que a palavra aparece (Acho melhor em Leitor).
 
-(3)acho que o operator == È desnecess·rio ‡ classe Ìndice, pois sÛ haver· um Ìndice. O que acham??
+(3)acho que o operator == √© desnecess√°rio √† classe √≠ndice, pois s√≥ haver√° um √≠ndice. O que acham??
 
-(4)struct no n„o ser· necess·ria, pois estou utlizando STL C++
+(4)struct no n√£o ser√° necess√°ria, pois estou utlizando STL C++
 
 (5)Classes implementadas com map precisam de destrutor??
 
-(6)Comentei as linhas do cÛdigo anterior que achei desnecess·rias
+(6)Comentei as linhas do c√≥digo anterior que achei desnecess√°rias
 
-(7)Na classe leitor, utilize a classe indice para criar um Ìndice invertido e preenchÍ-lo.
+(7)Na classe leitor, utilize a classe indice para criar um √≠ndice invertido e preench√™-lo.
 
-(8)As vari·veis privadas da classe Ìndice fazem sentido?
+(8)As vari√°veis privadas da classe √≠ndice fazem sentido?
