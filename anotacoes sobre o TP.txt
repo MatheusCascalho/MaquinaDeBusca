@@ -1,0 +1,15 @@
+(1)função adiciona na classe inice adiciona um objeto palavra ao índice
+
+(2)classe Leitor ou Palavra deve conter uma função que retorna um conjunto de arquivos em que a palavra aparece (Acho melhor em Leitor).
+
+(3)acho que o operator == é desnecessário à classe índice, pois só haverá um índice. O que acham??
+
+(4)struct no não será necessária, pois estou utlizando STL C++
+
+(5)Classes implementadas com map precisam de destrutor??
+
+(6)Comentei as linhas do código anterior que achei desnecessárias
+
+(7)Na classe leitor, utilize a classe indice para criar um índice invertido e preenchê-lo.
+
+(8)As variáveis privadas da classe índice fazem sentido?
