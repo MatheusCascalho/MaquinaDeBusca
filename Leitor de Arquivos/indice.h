@@ -1,7 +1,7 @@
 /* Aqui estao declaradas as ferramentas necessarias para gerar um Indice Invertido.
 
 Isto sera realizado primeiramente pelo void LerArquivos, que recebe o endereco
-de um diretorio e e capazde abri-lo, ler todos os arquivos .txt e armazenar suas
+de um diretorio e e capa de abri-lo, ler todos os arquivos .txt e armazenar suas
 palavras no indice.
 O struct Palavra sera responsavel pela formatacao dos textos,
 Ja a classe Indice e aquela que ira armazenar todos os dados e montar o indice
