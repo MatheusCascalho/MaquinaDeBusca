@@ -19,7 +19,7 @@ void transformaString(string& valor){
                 valor = string(valor, 0, valor.size() - 1);
                 i = i-2; //a subtracao por 2 leva em conta o argumento de +1 do proximo ciclo.
             } else {
-                valor[i] = '9';
+                valor[i] = ' ';
             }
         }
     }
