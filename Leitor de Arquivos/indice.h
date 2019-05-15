@@ -1,10 +1,26 @@
+/* Aqui estao declaradas as ferramentas necessarias para gerar um Indice Invertido.
+
+Isto sera realizado primeiramente pelo void LerArquivos, que recebe o endereco
+de um diretorio e e capazde abri-lo, ler todos os arquivos .txt e armazenar suas
+palavras no indice.
+O struct Palavra sera responsavel pela formatacao dos textos,
+Ja a classe Indice e aquela que ira armazenar todos os dados e montar o indice
+invertido propriamente dito.  */ 
+
 #ifndef INDICE_H
 #define INDICE_H
 
 #include <string>
 #include <map>
 #include <set>
-#include "palavra.h"
+#include <fstream>
+
+using std::string;
+using std::set;
+
+void LerArquivos(const string Endereco){}
+
+struct Palavra {};
 
 class Indice {
     public:
@@ -35,29 +51,29 @@ class Indice {
         void adiciona(const Palavra& p);
 
         // retona todas as palavras do vocabulário
-        std::set<Palavra> vocabulario();
+        set<Palavra> vocabulario();
 
         // Compara de *this tem os mesmos elementos de x.
-        //bool operator==(const Indice& x) const;
+        bool operator==(const Indice& x) const;
 
         // Faz com que *this tenha os mesmos elementos de x.
-        //void operator=(const Indice& x);
+        void operator=(const Indice& x);
 
         // Desaloca a memoria de um indice.
-        //~Indice();
+        ~Indice();
 
     private:
         // palavra-chave 
         Palavra chave_;
 
         //conjunto de arquivos em que a palavra chave aparece
-        std::set<Palavra> arquivos_;
+        set<Palavra> arquivos_;
         
         // Ponteiro do sentinela de um indice.
         //NoLeitor* fim_;
 
         // Numero de elementos de um indice.
-        //int tam_;
+        int tam_;
 };
 
 #endif // INDICE_H
