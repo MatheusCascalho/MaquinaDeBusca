@@ -31,7 +31,7 @@ struct Diretorio{
     string Prefixo = "Diretorio\\\\";
     
     /*Nome do Arquivo guia, com extencao .txt ele deve ter o nome de todos os arquivos a serem lidos*/
-    string nomeArquivo = "Arquivos.txt";
+    string nomeArquivo = "Sumario.txt";
 
     /*Use esta funcao para abrir os arquivos corretamente*/          
     string nomeCompleto;
