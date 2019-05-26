@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <list>
-#include <set>
+#include <map>
 #include <cctype>
 
 using namespace std;
@@ -29,22 +29,23 @@ struct Diretorio{
     /* O Prefixo deve ser nomeado com qualquer pasta a frente de onde e executado o programa. Terminando
     no diretorio onde esta presente o Arquivo Guia.*/
     string Prefixo = "Diretorio\\\\";
-    
+
     /*Nome do Arquivo guia, com extencao .txt ele deve ter o nome de todos os arquivos a serem lidos*/
     string nomeArquivo = "Sumario.txt";
 
-    /*Use esta funcao para abrir os arquivos corretamente*/          
+    /*Use esta funcao para abrir os arquivos corretamente*/
     string nomeCompleto;
 
     /*Esta funcao deve ser chamada sempre que o nome do arquivo e declarado ou alterado.*/
-    void definirNome(){ 
+    void definirNome(){
         nomeCompleto = Prefixo + nomeArquivo;
     }
 };
 
-void imprimirSet(const set<string> seT){
-    for (string E : seT){
-        cout << E << endl;
+void imprimirMap(const map<string,int> Map){
+    if(Map.begin()==Map.end())cout<<"Esta vazio";
+    for (auto aux=Map.begin();aux!=Map.end();aux++){
+        cout <<"Palavra: "<<aux->first<<" - Quantidade de repeticoes: "<< aux->second << endl;
     }
 }
 
@@ -67,7 +68,7 @@ void acharArquivos(list<string>& Arquivos, const Diretorio meuDiretorio){
     }
 }
 
-void lerArquivos(list<string>& listaDeArquivos, Diretorio meuDiretorio, set<string>& indiceInvertido){
+void lerArquivos(list<string>& listaDeArquivos, Diretorio meuDiretorio, map<string,int>& indiceInvertido){
     if (listaDeArquivos.empty()){
         cerr << "A lista fornecida ao leitor de arquivos esta vazia!" << endl;
     }
@@ -78,13 +79,20 @@ void lerArquivos(list<string>& listaDeArquivos, Diretorio meuDiretorio, set<stri
         Arquivo.open(meuDiretorio.nomeCompleto);
 
         string elemento;
-        set<string>::iterator iteraT;
+        map<string,int>::iterator iteraT;
         int i = 0;
+        //Procura o termo no indice invertido. Caso não encontre, o insere o elemento no índice. Caso encontre, aumenta o valor de repetições
         while (Arquivo >> elemento){
-            if(*(indiceInvertido.find(elemento)) != elemento){
+            if((indiceInvertido.find(elemento)) == indiceInvertido.end()){
                 transformaString(elemento);
-                indiceInvertido.insert(elemento);
-               // cout << elemento << endl;  //comentar caso nao queira testar se esta lendo corretamente.
+                indiceInvertido.insert(pair<string,int>(elemento,1));
+            
+            }
+            else{
+                iteraT=indiceInvertido.find(elemento);
+                int n=iteraT->second;
+                indiceInvertido.erase(elemento);
+                indiceInvertido.insert(pair<string,int>(elemento,n+1));
             }
         }
     }
@@ -93,7 +101,7 @@ void lerArquivos(list<string>& listaDeArquivos, Diretorio meuDiretorio, set<stri
 int main(){
     Diretorio meuDiretorio;
     list<string> arquivosPLer;
-    set<string> indiceInvertido;
+    map<string,int> indiceInvertido;//A string é a palavra e o int é a quantidade de repetições :)
 
     cout << "Bem vindo ao leitor de arquivos!" << endl;
 
@@ -114,7 +122,9 @@ int main(){
     lerArquivos(arquivosPLer, meuDiretorio, indiceInvertido);
 
     cout << "O seu indice invertido foi gerado. Imprimindo termo a termo:" << endl;
+    imprimirMap(indiceInvertido);
     system("pause");
-    imprimirSet(indiceInvertido);
-         
+    
+
+    return 0;
 }
