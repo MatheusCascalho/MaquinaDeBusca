@@ -57,10 +57,10 @@ void imprimirList(const list<string> lista){
     }
 }
 
-void acharArquivos(list<string>& arquivosPLer, Diretorio meuDiretorio){
+void acharArquivos(list<string>& arquivosPLer, const Diretorio meuDiretorio){
     fstream Arquivo;
     string PalavraLida;
-    meuDiretorio.definirNome();
+    //precondicao: o diretorio deve estar com o nome correto apos a funcao .definirNome do struct Diretorio.
     Arquivo.open(meuDiretorio.nomeCompleto);
     while (Arquivo >> PalavraLida){
         arquivosPLer.push_back(PalavraLida);
