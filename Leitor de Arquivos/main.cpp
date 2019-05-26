@@ -43,10 +43,11 @@ struct Diretorio{
     }
 };
 
-void imprimirMap(const map<string,int> Map){
-    if(Map.begin()==Map.end())cout<<"Esta vazio";
+void imprimirIndice(const map<string,int> Map){
+    if(Map.begin()==Map.end())cout<<"O indice invertido fornecido esta vazio";
     for (auto aux=Map.begin();aux!=Map.end();aux++){
-        cout <<"Palavra: "<<aux->first<<" - Quantidade de repeticoes: "<< aux->second << endl;
+        cout <<"Palavra: ["<<aux->first
+             <<"] - Quantidade de repeticoes: ["<< aux->second << "].\n" << endl;
     }
 }
 
@@ -56,21 +57,20 @@ void imprimirList(const list<string> lista){
     }
 }
 
-void acharArquivos(list<string>& Arquivos, const Diretorio meuDiretorio){
+void acharArquivos(list<string>& arquivosPLer, Diretorio meuDiretorio){
     fstream Arquivo;
     string PalavraLida;
-    //precondicao: o diretorio deve estar com o nome correto apos a funcao .definirNome do struct Diretorio.
+    meuDiretorio.definirNome();
     Arquivo.open(meuDiretorio.nomeCompleto);
     while (Arquivo >> PalavraLida){
-        Arquivos.push_back(PalavraLida);
+        arquivosPLer.push_back(PalavraLida);
     }
-    if (Arquivos.empty()){
+    if (arquivosPLer.empty()){ //Se o numero de palavras lidas foi zero, o diretorio nao encontrou arquivos.
         cerr << "Nenhum arquivo encontrado no diretorio selecionado!" << endl;
     }
 }
 
 void lerArquivos(list<string>& listaDeArquivos, Diretorio meuDiretorio, map<string,int>& indiceInvertido){
-    set<string> Conjunto_de_palavras;
     if (listaDeArquivos.empty()){
         cerr << "A lista fornecida ao leitor de arquivos esta vazia!" << endl;
     }
@@ -81,30 +81,19 @@ void lerArquivos(list<string>& listaDeArquivos, Diretorio meuDiretorio, map<stri
         Arquivo.open(meuDiretorio.nomeCompleto);
 
         string elemento;
-        map<string,int>::iterator iteraT;
-        int i = 0;
         //Procura o termo no indice invertido. Caso não encontre, o insere o elemento no índice. Caso encontre, aumenta o valor de repetições
         while (Arquivo >> elemento){
-            Conjunto_de_palavras.insert(elemento);
-        }
-        for(auto it=Conjunto_de_palavras.begin();it!=Conjunto_de_palavras.end();it++){
-            if((indiceInvertido.find(*it)) == indiceInvertido.end()){
-                string a=*it;
-                transformaString(a);
-                indiceInvertido.insert(pair<string,int>(*it,1));
-            
+                transformaString(elemento);
+                if(indiceInvertido.find(elemento) == indiceInvertido.end()){ //map.find retorna um iterator pro map.end()
+                    indiceInvertido.insert(pair<string,int>(elemento,1));
+                }
+                else{
+                    map<string,int>::iterator iteraT=indiceInvertido.find(elemento);
+                    int n = iteraT->second;
+                    indiceInvertido.erase(elemento);
+                    indiceInvertido.insert(pair<string,int>(elemento,n+1));
+                }
             }
-            else{
-                iteraT=indiceInvertido.find(*it);
-                int n=iteraT->second;
-                indiceInvertido.erase(*it);
-                indiceInvertido.insert(pair<string,int>(*it,n+1));
-            }
-        }
-        while(!Conjunto_de_palavras.empty()){
-            auto it=Conjunto_de_palavras.begin();
-            Conjunto_de_palavras.erase(it);
-        }
     }
 }
 
@@ -117,7 +106,7 @@ int main(){
 
     meuDiretorio.definirNome(); // Junta o prefixo com o nome do arquivo
 
-    cout  << "Abrindo o seguinte diretorio:" << endl
+    cout  << "Abrindo o seguinte Sumario encontrado no endereco:" << endl
           << meuDiretorio.nomeCompleto << endl;
     system("pause");
     cout  << "Nomes de arquivos encontrados no Arquivo Guia que foi fornecido pelo diretorio:" << endl;
@@ -132,7 +121,7 @@ int main(){
     lerArquivos(arquivosPLer, meuDiretorio, indiceInvertido);
 
     cout << "O seu indice invertido foi gerado. Imprimindo termo a termo:" << endl;
-    imprimirMap(indiceInvertido);
+    imprimirIndice(indiceInvertido);
     system("pause");
     
 
