@@ -4,6 +4,7 @@
 #include <list>
 #include <map>
 #include <cctype>
+#include <set>
 
 using namespace std;
 
@@ -69,6 +70,7 @@ void acharArquivos(list<string>& Arquivos, const Diretorio meuDiretorio){
 }
 
 void lerArquivos(list<string>& listaDeArquivos, Diretorio meuDiretorio, map<string,int>& indiceInvertido){
+    set<string> Conjunto_de_palavras;
     if (listaDeArquivos.empty()){
         cerr << "A lista fornecida ao leitor de arquivos esta vazia!" << endl;
     }
@@ -83,17 +85,25 @@ void lerArquivos(list<string>& listaDeArquivos, Diretorio meuDiretorio, map<stri
         int i = 0;
         //Procura o termo no indice invertido. Caso não encontre, o insere o elemento no índice. Caso encontre, aumenta o valor de repetições
         while (Arquivo >> elemento){
-            if((indiceInvertido.find(elemento)) == indiceInvertido.end()){
-                transformaString(elemento);
-                indiceInvertido.insert(pair<string,int>(elemento,1));
+            Conjunto_de_palavras.insert(elemento);
+        }
+        for(auto it=Conjunto_de_palavras.begin();it!=Conjunto_de_palavras.end();it++){
+            if((indiceInvertido.find(*it)) == indiceInvertido.end()){
+                string a=*it;
+                transformaString(a);
+                indiceInvertido.insert(pair<string,int>(*it,1));
             
             }
             else{
-                iteraT=indiceInvertido.find(elemento);
+                iteraT=indiceInvertido.find(*it);
                 int n=iteraT->second;
-                indiceInvertido.erase(elemento);
-                indiceInvertido.insert(pair<string,int>(elemento,n+1));
+                indiceInvertido.erase(*it);
+                indiceInvertido.insert(pair<string,int>(*it,n+1));
             }
+        }
+        while(!Conjunto_de_palavras.empty()){
+            auto it=Conjunto_de_palavras.begin();
+            Conjunto_de_palavras.erase(it);
         }
     }
 }
