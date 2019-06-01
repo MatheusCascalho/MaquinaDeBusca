@@ -24,6 +24,13 @@ struct Palavra {};
 
 struct Documento{};
 
+//representação da coleção de documentos
+struct diretorio{
+    //quantidade de documentos no diretorio
+    double qtdDocs();
+};
+
+
 class Indice {
     public:
         // Cria um indice invertido vazio.
