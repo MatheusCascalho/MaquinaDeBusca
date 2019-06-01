@@ -22,6 +22,8 @@ void LerArquivos(const string Endereco){}
 
 struct Palavra {};
 
+struct Documento{};
+
 class Indice {
     public:
         // Cria um indice invertido vazio.
@@ -59,9 +61,6 @@ class Indice {
         // Faz com que *this tenha os mesmos elementos de x.
         void operator=(const Indice& x);
 
-        // Desaloca a memoria de um indice.
-        ~Indice();
-
     private:
         // palavra-chave 
         Palavra chave_;
@@ -69,9 +68,6 @@ class Indice {
         //conjunto de arquivos em que a palavra chave aparece
         set<Palavra> arquivos_;
         
-        // Ponteiro do sentinela de um indice.
-        //NoLeitor* fim_;
-
         // Numero de elementos de um indice.
         int tam_;
 };
