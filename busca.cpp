@@ -8,8 +8,8 @@
 using namespace BUSCA;
 
 expressao_busca::expressao_busca(string e){
-    tf_ = 0;
-    idf_ = 0;
+    //tf_ = 0;
+    //idf_ = 0;
     exp_ = e;
 }
 
@@ -37,22 +37,46 @@ double expressao_busca::calculaIdf(Palavra p, diretorio c, Indice i){
     return idf_;
 }
 
-double expressao_busca::normalizaTf(Indice i, Palavra p){
-    double tfn = tf_ / i.arquivos(p);
-    return tfn;
-}
-
-double expressao_busca::determinaW(Documento d, Palavra p, Indice i, diretorio c){
+double expressao_busca::determinaW(Palavra p, diretorio c, Indice i){
     //w = tf * idf
-    double w = this->normalizaTf(i, p) * this->calculaIdf(p, c, i);
+    double tf = tf_/i.arquivos(p);
+    double w = tf * this->calculaIdf(p, c, i);
     return w;
 }
 
-///INCOMPLETO!!!!!!!!!!!!!!!
+ranking::ranking(){
+    ///////////INCOMPLETO!!!!!!!!!!
+}
 double ranking::similaridade(Documento d, expressao_busca q, Indice i, diretorio c){
-    double den = 0;
+    double num = 0;
+    double coordenadaDocumento = 0, coordenadaExpressao = 0;
+    double den_fr1 = 0, den_fr2 = 0;
+
     for(int t = 0; t < q.palavrasExpBusca().size(); t++){
-        //INCOMPLETO!!!!
-        double prod = q.determinaW(d, q.palavrasExpBusca()[t], i, c);
+        coordenadaDocumento = d.determinaW(q.palavrasExpBusca()[t], c, i);
+        coordenadaExpressao = q.determinaW(q.palavrasExpBusca()[t], c, i);
+                
+        double prod = coordenadaDocumento * coordenadaExpressao; 
+        
+        num = num + prod;
+        den_fr1 = den_fr1 + coordenadaDocumento;
+        den_fr2 = den_fr2 + coordenadaExpressao;
     }
+
+    double den = sqrt(den_fr1 * den_fr1) * sqrt(den_fr2 * den_fr2);
+
+    return num/den;
+}
+
+std::map<double, Documento> ranking::rankingCosseno(diretorio c, expressao_busca q, Indice ind){
+    std::map<double, Documento> r;
+    for (int i = 0; i < c.qtdDocs(); i++){
+        double chave = this->similaridade(c.docs()[i], q, ind, c);
+        r[chave] = c.docs()[i];
+    }
+    return r;
+}
+
+double ranking::funcaoHash(Palavra p, Documento d, Indice i){
+
 }

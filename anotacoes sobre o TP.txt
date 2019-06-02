@@ -13,3 +13,9 @@
 (7)Na classe leitor, utilize a classe indice para criar um índice invertido e preenchê-lo.
 
 (8)As variáveis privadas da classe índice fazem sentido?
+
+função a serem escritas:
+	expressao_busca::palavrasExpBusca()
+
+mudanças do projeto:
+	idf e tf como propriedades do objeto Palavra
