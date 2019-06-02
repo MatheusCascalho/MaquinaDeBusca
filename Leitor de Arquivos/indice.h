@@ -13,6 +13,7 @@ invertido propriamente dito.  */
 #include <string>
 #include <map>
 #include <set>
+#include <vector>
 #include <fstream>
 
 using std::string;
@@ -20,14 +21,31 @@ using std::set;
 
 void LerArquivos(const string Endereco){}
 
-struct Palavra {};
+struct Palavra {
+    //retorna a frequencia da palavra em um determinado documento
+    double termFrequency(std::vector<Palavra> d);
+};
 
-struct Documento{};
+struct Documento{
+    //representação do documento como um vetor de palavras
+    std::vector<Palavra> palavrasDocumento();
+
+    //calcula a coordenada de um documento no vetor da palavra
+    double determinaW(Palavra p, diretorio c, Indice i);
+
+    //frequencia do termo
+    double tf();
+
+    double tf_;
+};
 
 //representação da coleção de documentos
 struct diretorio{
     //quantidade de documentos no diretorio
     double qtdDocs();
+
+    //retorna um vetor de documentos do diretorio
+    std::vector<Documento> docs();
 };
 
 
@@ -67,6 +85,7 @@ class Indice {
 
         // Faz com que *this tenha os mesmos elementos de x.
         void operator=(const Indice& x);
+
 
     private:
         // palavra-chave 
