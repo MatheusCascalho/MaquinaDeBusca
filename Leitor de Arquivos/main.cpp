@@ -37,7 +37,11 @@ int main(){
 
     cout << "O indice invertido criado a partir do Sumario deve ter sido preenchido." << endl
          << "Imprimindo termo a termo:" << endl;
+    
+    system("pause");
     imprimirIndice(indiceInvertido);
 
+
+    system("pause");
     return 0;
 }
