@@ -1,7 +1,7 @@
 /* Aqui estao declaradas as ferramentas necessarias para gerar um Indice Invertido.
 
 Isto sera realizado primeiramente pelo void LerArquivos, que recebe o endereco
-de um diretorio e e capa de abri-lo, ler todos os arquivos .txt e armazenar suas
+de um diretorio e e capazde abri-lo, ler todos os arquivos .txt e armazenar suas
 palavras no indice.
 O struct Palavra sera responsavel pela formatacao dos textos,
 Ja a classe Indice e aquela que ira armazenar todos os dados e montar o indice
@@ -10,92 +10,58 @@ invertido propriamente dito.  */
 #ifndef INDICE_H
 #define INDICE_H
 
-#include <string>
+#include "leitor.h"
 #include <map>
-#include <set>
-#include <vector>
-#include <fstream>
 
-using std::string;
-using std::set;
+using std::map;
 
-void LerArquivos(const string Endereco){}
-
-struct Palavra {
-    //retorna a frequencia da palavra em um determinado documento
-    double termFrequency(std::vector<Palavra> d);
-};
-
-struct Documento{
-    //representação do documento como um vetor de palavras
-    std::vector<Palavra> palavrasDocumento();
-
-    //calcula a coordenada de um documento no vetor da palavra
-    double determinaW(Palavra p, diretorio c, Indice i);
-
-    //frequencia do termo
-    double tf();
-
-    double tf_;
-};
-
-//representação da coleção de documentos
-struct diretorio{
-    //quantidade de documentos no diretorio
-    double qtdDocs();
-
-    //retorna um vetor de documentos do diretorio
-    std::vector<Documento> docs();
-};
-
-
-class Indice {
+//Este struct ira guardar o numero de ocorrencias de um elemento e uma lista dos arquivos onde ele aparece.
+class Aux{
     public:
-        // Cria um indice invertido vazio.
-        Indice();
+    //Construtor de um Aux vazio.
+    Aux();
 
-        // Cria um indice com os mesmos elementos de x.
-        Indice(const Indice& x);
+    //Construtor de um Aux especifico, com I numero de ocorrencias e uma lista A de aparicoes.
+    Aux(int I, list<string> A);
 
-        // Testa se um indice esta vazio.
-        bool vazio() const;
+    //Retorna a lista de arquivos do Aux.
+    list<string> retornaLista() const;
 
-        // Retorna o numero de elementos de um indice.
-        int tamanho() const;
+    //Retorna o numero de ocorrencias em um Aux.
+    int lerOcorrencias() const;
 
-        // testa se p pertence ao índice
-        bool pertence(const Palavra& p); 
+    //Operador que incrementa o numero de ocorrencias em um Aux.
+    void operator++();
 
-        // retorna a quandidade de arquivo em que a palavra aparece
-        // PRECONDIÇÃO: A palavra deve pertencer ao conjunto
-        int arquivos(const Palavra& p);
+    //Operator que soma o numero de ocorrencias de dois Aux.
+    Aux operator+(Aux x);
 
-        // Retorna o primeiro elemento de um indice.
-        // PRECONDICAO: o indice nao pode estar vazio.
-        string primeiro() const;
+    //Operador << para implementar aux em map.
+    bool operator<<(Aux x);
 
-        // Adiciona uma palavra ao índice, bem como o conjunto de documentos em que ela aparece
-        void adiciona(const Palavra& p);
-
-        // retona todas as palavras do vocabulário
-        set<Palavra> vocabulario();
-
-        // Compara de *this tem os mesmos elementos de x.
-        bool operator==(const Indice& x) const;
-
-        // Faz com que *this tenha os mesmos elementos de x.
-        void operator=(const Indice& x);
-
+    //Insere uma aparicao.
+    void inserirAparicao(string X);
 
     private:
-        // palavra-chave 
-        Palavra chave_;
 
-        //conjunto de arquivos em que a palavra chave aparece
-        set<Palavra> arquivos_;
-        
-        // Numero de elementos de um indice.
-        int tam_;
+    //Registra o numero de ocorrencias de uma palavra em um map.
+    int numeroDeOcorrencias_;
+
+    //Registra o nome dos arquivos onde certa palavra foi encontrada.
+    list<string> aparicoes_;
+
 };
+
+//Ferramenta que padroniza um string (Maiuscula -> minuscula, Pontuacao-Sinais-> ' ' )
+void transformaString(string& valor);
+
+//Cria um indice a partir de um endereco de um arquivo Sumario e um map<string,int>.
+void criarIndice(Diretorio meuDiretorio, map<string,int>& indiceInvertido);
+
+//Cria um indice a partir de um endereco de um unico arquivo.
+void criarIndiceUnico(Diretorio endereco, map<string,int>& indiceInvertido);
+
+//Recebe um indice inverttido do tipo map<string,int> e imprime na tela.
+void imprimirIndice(const map<string,int> Map);
 
 #endif // INDICE_H
