@@ -30,9 +30,9 @@ namespace BUSCA
         //MUDAR ISSO PARA A CLASSE PALAVRA
         double idf();
 
-        //retorna a frequencia do termo
+        //retorna a frequencia do termo e
         //MUDAR ISSO PARA A CLASSE PALAVRA
-        double tf();
+        double tf(string e);
 
         //calcula o inverso da frequencia da palavra p nos documentos de um diretorio c
         //MUDAR ISSO PARA A CLASSE PALAVRA E RENOMEAR PARA IDF
@@ -44,7 +44,8 @@ namespace BUSCA
 
         //determina o peso de uma palavra P em um documento d
         //MUDAR ISSO PARA A CLASSE PALAVRA(???)
-        double determinaW(Palavra p, diretorio c, Indice i);
+        //double determinaW(Palavra p, diretorio c, Indice i);
+        double determinaW(diretorio c, Indice i);
  
     private:
         //Frequencia do termo
@@ -68,6 +69,7 @@ namespace BUSCA
             ranking();
 
             //retorna a similaridade entre um documento d e uma expressão de busca q (do tipo string)
+            double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
             double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
        
             //Retorna o ranking de documentos
