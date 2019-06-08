@@ -73,7 +73,7 @@ namespace BUSCA
             //Retorna o ranking de documentos
             std::map<double, Documento> rankingCosseno(diretorio c, expressao_busca q, Indice i);
 
-            //Função Hah Perfeita
+            //Função Hash Perfeita. Retorna a quantidade de vezes que a palavra p aparece no documento d
             //IMPLEMENTAR!!!!!!
             double funcaoHash(Palavra p, Documento d, Indice i);
         private:
