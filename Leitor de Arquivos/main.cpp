@@ -30,18 +30,7 @@ int main(){
     lerArquivos(meuDiretorio, arquivosPLer, nomeSaida);
 
     cout << "O arquivo Saida.txt deve ter sido preenchido." << endl;
-
-
-    map<string,int> indiceInvertido;
-    criarIndice(meuDiretorio, indiceInvertido);
-
-    cout << "O indice invertido criado a partir do Sumario deve ter sido preenchido." << endl
-         << "Imprimindo termo a termo:" << endl;
     
-    system("pause");
-    imprimirIndice(indiceInvertido);
-
-
     system("pause");
     return 0;
 }

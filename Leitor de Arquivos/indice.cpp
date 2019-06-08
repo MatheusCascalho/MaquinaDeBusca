@@ -7,49 +7,44 @@ using std::cout;
 using std::endl;
 using std::pair;
 
-Aux::Aux(){
-    numeroDeOcorrencias_ = 0;
-}
+void Indice::criarIndice(Diretorio dir){
+    fstream arquivoDoSumario;
 
-Aux::Aux(int I, list<string> A){
-    numeroDeOcorrencias_ = I;
-    for (string E : A){
-        aparicoes_.push_back(E);
+    acharArquivos(dir, this->todosDocumentos_);
+
+    for(string arquivoLido : todosDocumentos_){
+        dir.setNome(arquivoLido);
+        dir.concatenarEndereco();
+
+        fstream File;
+        File.open(dir.lerNomeCompleto());
+        string Elemento;
+        while(File >> Elemento){         
+            transformaString(Elemento);
+            ListDocumentos novo;
+            novo.insert(dir.lerNome());
+            if (this->elementos_.find(Elemento) == this->elementos_.end()){ //Quando um elemento nao pertence
+                this->elementos_.insert(pair<string,ListDocumentos>(Elemento,novo));     //ao Map, .find retorna .end.
+            } else {
+                this->elementos_.find(Elemento)->second.insert(dir.lerNome());
+            }
+        }
     }
 }
 
-list<string> Aux::retornaLista() const{
-    return aparicoes_;
+Indice::Indice(){
+
 }
 
-int Aux::lerOcorrencias() const{
-    return numeroDeOcorrencias_;
+Indice::Indice(Diretorio dir){
+    this->criarIndice(dir);
 }
 
-void Aux::operator++(){
-    numeroDeOcorrencias_++;
+void Indice::imprimirIndice() const{
+    //Ainda vou implementar.
 }
 
-Aux Aux::operator+(Aux X){
-    int numeroTotal = numeroDeOcorrencias_ + X.lerOcorrencias();
-    Aux Fim(numeroTotal, aparicoes_);
-    return Fim;
-}
-
-bool Aux::operator<<(Aux X){
-    int numero = numeroDeOcorrencias_;
-    if (numero << X.lerOcorrencias()){
-        return true;
-    }
-    return false;
-}
-
-void Aux::inserirAparicao(string X){
-    aparicoes_.push_back(X);
-}
-
-
-void transformaString(string& valor){
+void Indice::transformaString(string& valor){
     for (int i = 0; i < valor.size(); i++){
         valor[i] = tolower(valor[i]);
 
@@ -67,41 +62,21 @@ void transformaString(string& valor){
     }
 }
 
-
-void criarIndice(Diretorio meuDiretorio, map<string,int>& indiceInvertido){
-    list<string> arquivosPLer;
-    fstream arquivoDoSumario;
-
-    acharArquivos(meuDiretorio, arquivosPLer);
-
-    for(string arquivoLido : arquivosPLer){
-        meuDiretorio.setNome(arquivoLido);
-        meuDiretorio.concatenarEndereco();
-
-        fstream File;
-        File.open(meuDiretorio.lerNomeCompleto());
-        string Elemento;
-        while(File >> Elemento){
-            transformaString(Elemento);
-            if (indiceInvertido.find(Elemento) == indiceInvertido.end()){ //Quando um elemento nao pertence
-                indiceInvertido.insert(pair<string,int>(Elemento,1));     //ao Map, .find retorna .end.
-            } else {
-                indiceInvertido.find(Elemento)->second++;
-            }
-        }
-    }
+int Indice::aparicoesTotal(string Palavra) const{
+    //Ainda vou implementar
+return 0;
 }
 
-void criarIndiceUnico(Diretorio endereco, map<string,int>& indiceInvertido){
-
+map<string, ListDocumentos> Indice::getIndice() const{
+    return this->elementos_;
 }
 
+/*
 void imprimirIndice(const map<string,int> Map){
     if(Map.begin()==Map.end())cout<<"O indice invertido fornecido esta vazio";
-    for (auto aux=Map.begin();aux!=Map.end();aux++){
-        cout <<"Palavra: ["<<aux->first
-             <<"] - Quantidade de repeticoes: ["<< aux->second << "].\n" << endl;
+    for (auto ListDocumentos=Map.begin();ListDocumentos!=Map.end();ListDocumentos++){
+        cout <<"Palavra: ["<<ListDocumentos->first
+             <<"] - Quantidade de repeticoes: ["<< ListDocumentos->second << "].\n" << endl;
     }
 }
-
-
+*/
