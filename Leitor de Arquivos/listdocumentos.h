@@ -36,7 +36,7 @@ class ListDocumentos{
 
     //Insere uma nova aparicao de uma Palavra em um Documento especifico.
     //PRECONDICAO: A Palavra nao pode ter aparecido nenhuma vez nesse Documento.
-    void insert(string Documento);
+    void inserir(string Documento);
 
     private:
 

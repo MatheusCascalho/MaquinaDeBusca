@@ -31,6 +31,6 @@ bool ListDocumentos::operator<<(ListDocumentos X){
     return 0;
 }
 
-void ListDocumentos::insert(string X){
+void ListDocumentos::inserir(string X){
     this->documentos_.insert(pair<string,int>(X,1));
 }

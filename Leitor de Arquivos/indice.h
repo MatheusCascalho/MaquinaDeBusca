@@ -10,6 +10,7 @@
 using std::map;
 
 
+
 class Indice{
     public:
     //Cria um indice invertido vazio.
@@ -21,8 +22,8 @@ class Indice{
     //Gera um indice invertido a partir de um diretorio.
     void criarIndice(Diretorio dir);
 
-    //Imprime o Indice Invertido na Tela.
-    void imprimirIndice() const;
+    //Imprime o Indice Invertido na Tela com todos os seus elementos.
+    void imprimirIndiceCompleto() const;
 
     //Faz com que uma string seja Normalizada no padrao do Indice Invertido.
     void transformaString(string& Palavra);
@@ -34,8 +35,9 @@ class Indice{
     //PRECONDICAO: o indice nao pode estar vazio.
     map<string, ListDocumentos> getIndice() const;
 
-    //retorna a quantidade de documentos do índice
-    int qtdDocs();
+    //Retorna todos os documentos usados para formar o Indice Invertido.
+    //Precondicao: O indice nao pode estar vazio.
+    list<string> getTodosDocumentos() const; 
 
     private:
     //Map<string, ListDocumentos> que forma o indice invertido.

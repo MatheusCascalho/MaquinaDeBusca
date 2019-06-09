@@ -30,7 +30,14 @@ int main(){
     lerArquivos(meuDiretorio, arquivosPLer, nomeSaida);
 
     cout << "O arquivo Saida.txt deve ter sido preenchido." << endl;
+
+    cout << "Testando a criacao e leitura de um indice: " << endl;
+
     
+
+    Indice meuIndice(meuDiretorio);
+    meuIndice.imprimirIndiceCompleto();
+
     system("pause");
     return 0;
 }

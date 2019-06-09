@@ -19,16 +19,28 @@ void Indice::criarIndice(Diretorio dir){
         fstream File;
         File.open(dir.lerNomeCompleto());
         string Elemento;
-        while(File >> Elemento){         
+        int i = 1;
+        while(File >> Elemento){        
             transformaString(Elemento);
-            ListDocumentos novo;
-            novo.insert(dir.lerNome());
+            cout << i << "  " << Elemento << endl;;
+            i++; 
             if (this->elementos_.find(Elemento) == this->elementos_.end()){ //Quando um elemento nao pertence
-                this->elementos_.insert(pair<string,ListDocumentos>(Elemento,novo));     //ao Map, .find retorna .end.
+                pair<string, ListDocumentos> Par;                           //ao Map, .find retorna .end.
+                Par.first = Elemento;                
+                Par.second.inserir(arquivoLido); //chamando funcao insert de listdocumentos. 
+                elementos_.insert(Par);           
             } else {
-                this->elementos_.find(Elemento)->second.insert(dir.lerNome());
+                if (this->elementos_.find(Elemento)->first == arquivoLido){
+                    this->elementos_.find(Elemento)->second.operator+(arquivoLido); //Localiza o par pela chave Elemento e incrementa o int.
+                } else {
+                    pair<string, ListDocumentos> Par;
+                    Par.first = Elemento;
+                    Par.second.inserir(arquivoLido);
+                    elementos_.insert(Par);
+                }
             }
         }
+        File.close();    
     }
 }
 
@@ -40,8 +52,32 @@ Indice::Indice(Diretorio dir){
     this->criarIndice(dir);
 }
 
-void Indice::imprimirIndice() const{
-    //Ainda vou implementar.
+void Indice::imprimirIndiceCompleto() const{
+    cout << "Iniciando Processo de impressao completa do Indice Invertido." << endl
+         << "Imprimindo todos os documentos usados na criacao desse Indice Invertido:" <<endl;
+
+    int i = 1;
+    for (string Documento : this->todosDocumentos_){
+        cout << i << "- [" << Documento << "] " << endl;
+        i++;
+    }
+
+    cout << "Confirme para imprimir todas as palavras coletadas no indice" << endl
+         << "Assim como todos os documentos onde cada palavra aparece" << endl
+         << "Seguidos do numero de aparicoes em cada um destes documentos" << endl;
+
+    system("pause");
+    for (pair<string, ListDocumentos> Par : this->elementos_){
+        cout << "[" << Par.first << "] / ";
+        list <string> Documentos = Par.second.retornaLista();
+        for (string Documento : Documentos){
+            cout << "--- ["<< Documento << "] - [" << Par.second.lerOcorrencias(Documento) << "]";
+        }
+        cout << endl;
+    }
+
+    cout << "Indice Invertido foi impresso com sucesso!" << endl;
+
 }
 
 void Indice::transformaString(string& valor){
@@ -71,8 +107,8 @@ map<string, ListDocumentos> Indice::getIndice() const{
     return this->elementos_;
 }
 
-int Indice::qtdDocs(){
-    return todosDocumentos_.size();
+list<string> Indice::getTodosDocumentos() const{
+    return this->todosDocumentos_;
 }
 
 /*
