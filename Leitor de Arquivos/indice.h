@@ -10,7 +10,6 @@
 using std::map;
 
 
-
 class Indice{
     public:
     //Cria um indice invertido vazio.

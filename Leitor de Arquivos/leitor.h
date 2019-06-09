@@ -10,7 +10,8 @@ using std::list;
 //Recebe um arquivo e uma lista, lendo uma string e adicionando-a na lista.
 //void lerUmString(fstream arquivo, list<string>& lista);
 
-//Recebe uma lista vazia e a preenche com todos os nomes de arquivos encontrados no sumario do construtor padrao de Diretorio.
+//Recebe uma lista vazia e a preenche com todos os nomes de arquivos 
+//encontrados no sumario do construtor padrao de Diretorio.
 void acharArquivosPadrao(list<string>& lista);
 
 //PRECONDICAO: O diretorio deve ter a variavel privada nomeCompleto != de um valor nulo.

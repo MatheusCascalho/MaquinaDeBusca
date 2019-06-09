@@ -1,6 +1,8 @@
 #include <string>
+#include <string.h>
 #include <map>
 #include <vector>
+#include <list>
 #include <math.h>
 #include "Leitor de Arquivos/indice.h"
 #include "busca.h"
@@ -8,9 +10,18 @@
 using namespace BUSCA;
 
 expressao_busca::expressao_busca(string e){
-    //tf_ = 0;
-    //idf_ = 0;
     exp_ = e;
+
+    int primeiraLetra = 0; //posição da primeira letra de uma palavra
+    string palavra;
+    for (int i = 0; i < strlen(e); i++){
+        if (e[i]==' '){
+            palavra = e.substr(primeiraLetra, i - 1);
+            transformaString(palavra); //normaliza a palavra
+            vetExp_.push_back(palavra); //armazena a palavra no vetor
+            primeiraLetra = i + 1; //primeira letra da próxima palavra
+        }
+    }
 }
 
 string expressao_busca::expBusca(){
@@ -18,29 +29,28 @@ string expressao_busca::expBusca(){
 }
 
 std::vector<Palavra> expressao_busca::palavrasExpBusca(){
-    ////////////////VOLTAR PARA FAZER!!!!!!
-}
-double expressao_busca::idf(){
-    return idf_;
+    return vetExp_;
 }
 
-double expressao_busca::tf(){
-    return tf_;
+double expressao_busca::tf(string p){
+    int tf = 0;
+    transformaString(p);
+    for (int i = 0; i < vetExp_.size(); i++){
+        if (vetExp_[i] == p) tf++;
+    }
+
+    return tf;
 }
 
-double expressao_busca::calculaIdf(Palavra p, diretorio c, Indice i){
-    int n = c.qtdDocs();
-    int nt = i.tamanho();
-
-    idf_ = log(n/nt);
-
-    return idf_;
+double expressao_busca::idf(string p, Indice i){
+    
 }
 
-double expressao_busca::determinaW(Palavra p, diretorio c, Indice i){
+double ranking::coordenadaDocsNaPalavra(ListDocumentos ldocs, string p)
+{
     //w = tf * idf
     double tf = tf_/i.arquivos(p);
-    double w = tf * this->calculaIdf(p, c, i);
+    double w = tf * this->idf(p, c, i);
     return w;
 }
 

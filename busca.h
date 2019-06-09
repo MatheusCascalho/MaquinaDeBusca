@@ -10,6 +10,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <list>
 #include <math.h>
 #include "Leitor de Arquivos/indice.h"
 
@@ -24,36 +25,23 @@ namespace BUSCA
         string expBusca();
 
         //retorna a expressao de busca como vetor
-        std::vector<Palavra> palavrasExpBusca();
+        std::list<Palavra> palavrasExpBusca();
         
-        //retorna idf
-        //MUDAR ISSO PARA A CLASSE PALAVRA
-        double idf();
+        //retorna a frequencia da palavra p na expressão de busca
+        double tf(string p);
 
-        //retorna a frequencia do termo e
-        //MUDAR ISSO PARA A CLASSE PALAVRA
-        double tf(string e);
+        //calcula o inverso da frequencia da palavra p nos documentos de um índice invertido i
+        double idf(string p, Indice i, );
 
-        //calcula o inverso da frequencia da palavra p nos documentos de um diretorio c
-        //MUDAR ISSO PARA A CLASSE PALAVRA E RENOMEAR PARA IDF
-        double calculaIdf(Palavra p, diretorio c, Indice i);
-
-        //Normaliza tf
-        //MUDAR ISSO PARA A CLASSE PALAVRA
-        double normalizaTf(Indice i, Palavra p);
-
-        //determina o peso de uma palavra P em um documento d
-        //MUDAR ISSO PARA A CLASSE PALAVRA(???)
-        //double determinaW(Palavra p, diretorio c, Indice i);
-        double determinaW(diretorio c, Indice i);
  
-    private:
+    protected:
         //Frequencia do termo
         //MUDAR ISSO PARA A CLASSE PALAVRA
-        double tf_;
+        //double tf_;
+
         //inverso da frequencia nos documento
         //MUDAR ISSO PARA A CLASSE PALAVRA
-        double idf_;
+        //double idf_;
 
         //expressao propriamente dita
         string exp_;
@@ -61,6 +49,9 @@ namespace BUSCA
         //representação da expressão de busca como um vetor
         //IMPLEMENTAR!!!!
         std::vector<Palavra> vetExp_;
+
+        friend class teste;
+
     };
 
     class ranking{
@@ -69,15 +60,20 @@ namespace BUSCA
             ranking();
 
             //retorna a similaridade entre um documento d e uma expressão de busca q (do tipo string)
-            double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
-            double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
+            //double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
+            double similaridade(expressao_busca q, Indice i, diretorio c);
        
             //Retorna o ranking de documentos
             std::map<double, Documento> rankingCosseno(diretorio c, expressao_busca q, Indice i);
 
-            //Função Hash Perfeita. Retorna a quantidade de vezes que a palavra p aparece no documento d
-            //IMPLEMENTAR!!!!!!
-            double funcaoHash(Palavra p, Documento d, Indice i);
+            //determina o peso de cada documento no eixo p. w(d, p)
+            std::list<double> coordenadaDocsNaPalavra(ListDocumentos ldocs, string p);
+
+
+            //Mapa de coordenadas. Representa uma tabela onde temos os documentos e expressões de busca
+            //nas colunas e as palavras do vocabulário nas linhas. Cada celula da tabela representa a o peso de uma 
+            //paralavra em um documento
+            stl::map<string, stl::vector<double>>  mapaCoordenada(Indice i);
         private:
             //ordenação dos documentos
             std::vector<Documento> ordemDocumentos_;
