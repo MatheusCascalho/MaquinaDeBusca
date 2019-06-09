@@ -34,6 +34,9 @@ class Indice{
     //PRECONDICAO: o indice nao pode estar vazio.
     map<string, ListDocumentos> getIndice() const;
 
+    //retorna a quantidade de documentos do índice
+    int qtdDocs();
+
     private:
     //Map<string, ListDocumentos> que forma o indice invertido.
     map<string, ListDocumentos> elementos_;

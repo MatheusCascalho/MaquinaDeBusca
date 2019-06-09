@@ -71,6 +71,10 @@ map<string, ListDocumentos> Indice::getIndice() const{
     return this->elementos_;
 }
 
+int Indice::qtdDocs(){
+    return todosDocumentos_.size();
+}
+
 /*
 void imprimirIndice(const map<string,int> Map){
     if(Map.begin()==Map.end())cout<<"O indice invertido fornecido esta vazio";

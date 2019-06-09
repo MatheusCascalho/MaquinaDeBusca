@@ -7,6 +7,7 @@
 #include "Leitor de Arquivos/indice.h"
 #include "busca.h"
 
+//using namespace std;
 using namespace BUSCA;
 
 expressao_busca::expressao_busca(string e){
@@ -42,15 +43,36 @@ double expressao_busca::tf(string p){
     return tf;
 }
 
-double expressao_busca::idf(string p, Indice i){
-    
+double expressao_busca::tfmax(indice i){
+    double tfmax = 0;
+    map<string, ListDocumentos> ind = i.getIndice();
+    map<string, ListDocumentos>::iterator it;
+    for(it = ind.begin(); it != ind.end(); it++){
+        map<string, int>::iterator itInterno;
+        list<string, int> documentos = it->second.retornaLista();
+        for (itInterno = documentos.begin(); itInterno != documentos.end(); itInterno++){
+            if (itInterno->second > tfmax) tfmax = itInterno->second;
+        }
+    }
+
+    return tfmax;
 }
 
-double ranking::coordenadaDocsNaPalavra(ListDocumentos ldocs, string p)
+double expressao_busca::idf(string p, Indice i){
+    string palavra = transformaString(p);
+    int qtdDocs = i.qtdDocs();
+    int ondePOcorre = i.getIndice().find(palavra)->second.retornaLista().size();
+
+    double idf = log2(qtdDocs/ondePOcorre);
+
+    return idf;
+}
+
+double expressao_busca::coordenadaDocsNaPalavra(Indice i, string p)
 {
     //w = tf * idf
-    double tf = tf_/i.arquivos(p);
-    double w = tf * this->idf(p, c, i);
+    double tf = this->tf(p)/this->tfmax(i);
+    double w = tf * this->idf(p, i);
     return w;
 }
 

@@ -30,8 +30,15 @@ namespace BUSCA
         //retorna a frequencia da palavra p na expressão de busca
         double tf(string p);
 
+        //frequencia máxima de qualquer termo dentro do índice
+        double tfmax(Indice i);
+
         //calcula o inverso da frequencia da palavra p nos documentos de um índice invertido i
         double idf(string p, Indice i, );
+
+        //determina o peso de cada documento no eixo p. w(d, p)
+        std::list<double> coordenadaDocsNaPalavra(Indice i, string p);
+
 
  
     protected:
@@ -66,9 +73,7 @@ namespace BUSCA
             //Retorna o ranking de documentos
             std::map<double, Documento> rankingCosseno(diretorio c, expressao_busca q, Indice i);
 
-            //determina o peso de cada documento no eixo p. w(d, p)
-            std::list<double> coordenadaDocsNaPalavra(ListDocumentos ldocs, string p);
-
+            
 
             //Mapa de coordenadas. Representa uma tabela onde temos os documentos e expressões de busca
             //nas colunas e as palavras do vocabulário nas linhas. Cada celula da tabela representa a o peso de uma 
