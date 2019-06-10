@@ -7,6 +7,14 @@ using std::cout;
 using std::endl;
 using std::pair;
 
+Indice::Indice(){
+    //Propositalmente nao faz nada. para preencher o Indice use criarIndice().
+}
+
+Indice::Indice(Diretorio dir){
+    this->criarIndice(dir);
+}
+
 void Indice::criarIndice(Diretorio dir){
     fstream arquivoDoSumario;
 
@@ -24,32 +32,28 @@ void Indice::criarIndice(Diretorio dir){
             transformaString(Elemento);
             cout << i << "  " << Elemento << endl;;
             i++; 
-            if (this->elementos_.find(Elemento) == this->elementos_.end()){ //Quando um elemento nao pertence
-                pair<string, ListDocumentos> Par;                           //ao Map, .find retorna .end.
-                Par.first = Elemento;                
-                Par.second.inserir(arquivoLido); //chamando funcao insert de listdocumentos. 
-                elementos_.insert(Par);           
+            if (this->elementos_.find(Elemento) == this->elementos_.end()){ //Quando um elemento nao pertence a lista.
+                cout << Elemento << " Nao pertence a lista de elementos, inserindo... " << endl;
+                this->inserir(Elemento, arquivoLido); 
+                cout << Elemento << " Inserido com sucesso." << endl;          
             } else {
-                if (this->elementos_.find(Elemento)->first == arquivoLido){
-                    this->elementos_.find(Elemento)->second.operator+(arquivoLido); //Localiza o par pela chave Elemento e incrementa o int.
-                } else {
-                    pair<string, ListDocumentos> Par;
-                    Par.first = Elemento;
-                    Par.second.inserir(arquivoLido);
-                    elementos_.insert(Par);
+                if (this->elementos_.find(Elemento)->first == Elemento){ //Se na lista de palavras esta palavra ja apareceu uma vez.
+                    cout << Elemento << " Ja apareceu na lista, verificando arquivo... " << endl;
+                    if(this->acharDoc(Elemento, arquivoLido).first != arquivoLido){ //Se esta palavra ja apareceu no Arquivo aberto.
+                        cout << Elemento << " Ja apareceu " << this->aparicoesDoc(Elemento, arquivoLido) << " vezes em " << arquivoLido
+                             << endl << "Incrementando aparicoes..." << endl;
+                        this->incrementar(Elemento, arquivoLido); 
+                        cout << "Numero de aparicoes de " << Elemento << " em " << arquivoLido << " incrementado com sucesso." << endl;
+                    } else {// Se esta palavra apareceu neste Arquivo pela primeira vez. NAO FUNCIONA 
+                        cout << Elemento << " Ainda nao apareceu nenhuma vez em " << arquivoLido << "... inserindo..." << endl;
+                        this->inserirDoc(Elemento, arquivoLido);
+                        cout << "Foi registrado que " << Elemento << " apareceu pela primeira vez em " << arquivoLido << endl;
+                    }
                 }
             }
         }
         File.close();    
     }
-}
-
-Indice::Indice(){
-
-}
-
-Indice::Indice(Diretorio dir){
-    this->criarIndice(dir);
 }
 
 void Indice::imprimirIndiceCompleto() const{
@@ -98,9 +102,32 @@ void Indice::transformaString(string& valor){
     }
 }
 
+int Indice::aparicoesDoc(string Elemento, string Documento){
+    return this->elementos_.find(Elemento)->second.lerOcorrencias(Documento);
+}
+
 int Indice::aparicoesTotal(string Palavra) const{
     //Ainda vou implementar
 return 0;
+}
+
+void Indice::inserir(string Elemento, string Documento){
+    pair<string, ListDocumentos> Par;
+    Par.first = Elemento;
+    Par.second.inserir(Documento);
+    elementos_.insert(Par);
+}
+
+void Indice::incrementar(string Elemento, string Documento){
+    this->elementos_.find(Elemento)->second.incrementar(Documento);
+}
+
+void Indice::inserirDoc(string Elemento, string Documento){
+    this->elementos_.find(Elemento)->second.inserir(Documento);
+}
+
+pair<string, int> Indice::acharDoc(string Elemento, string Documento){
+    return (this->elementos_.find(Elemento)->second.acharDoc(Documento));
 }
 
 map<string, ListDocumentos> Indice::getIndice() const{

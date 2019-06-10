@@ -28,12 +28,27 @@ class Indice{
     //Faz com que uma string seja Normalizada no padrao do Indice Invertido.
     void transformaString(string& Palavra);
 
+    //retorna as aparicoes de uma palavra em um documento.
+    int aparicoesDoc(string Elemento, string Documento);
+
     //retorna a soma de aparicoes de uma palavra em todos os documentos que ela aparece.
     int aparicoesTotal(string Palavra) const;
+
+    //retorna o par especifico de um Documento com seu numero de aparicoes de dentro da Lista de Elementos.
+    pair<string,int> acharDoc(string Elemento, string Documento);
 
     //Retorna o indice invertido.
     //PRECONDICAO: o indice nao pode estar vazio.
     map<string, ListDocumentos> getIndice() const;
+
+    //Insere um novo Elemento na lista de palavras.
+    void inserir(string Elemento, string Documento);
+
+    //Incrementa uma aparicao de um Documento para um Elemento especifico.
+    void incrementar(string Elemento, string Documento);
+
+    //Adiciona na lista de aparicoes de uma Palavra um novo Documento.
+    void inserirDoc(string Elemento, string Documento);
 
     //Retorna todos os documentos usados para formar o Indice Invertido.
     //Precondicao: O indice nao pode estar vazio.

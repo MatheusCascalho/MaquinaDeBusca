@@ -6,6 +6,7 @@
 #include <iostream>
 
 using std::map;
+using std::pair;
 
 //Esta Classe ira guardar todos os documentos onde uma palavra aparece
 //em um indice, assim como o numero de vezes que ela aparece em cada um destes documentos.
@@ -22,14 +23,18 @@ class ListDocumentos{
     int lerOcorrencias(string Documento) const;
 
     //Retorna o numero total de ocorrencias de uma Palavra em todos os documentos que ela aparece.
-    int numTotal() const;
+    //PRECONDICAO: a Palavra deve pertencer a lista.
+    int numTotal(string Palavra) const;
 
     //Imprime na tela uma lista de documentos com suas correspondentes aparicoes.
     void imprimeListDoc();
+
+    //Retorna um endereco de um par em documentos_, ou um endereco para documentos_.end() no caso negativo
+    pair<string,int> acharDoc(string Documentos);
  
     //Operador que incrementa o numero de ocorrencias de uma Palavra em um Documento.
     //PRECONDICAO: A Palavra deve ter aparecido pelo menos 1 vez nesse Documento.
-    void operator+(string Documento);
+    void incrementar(string Documento);
 
     //Operador << para implementar ListDocumentos em Indice, compara com X pelo numero absoluto de palavras armazenadas.
     bool operator<<(ListDocumentos x);
@@ -37,6 +42,9 @@ class ListDocumentos{
     //Insere uma nova aparicao de uma Palavra em um Documento especifico.
     //PRECONDICAO: A Palavra nao pode ter aparecido nenhuma vez nesse Documento.
     void inserir(string Documento);
+
+    //Retorna o map que guarda os documentos, assim como suas respectivas contagens de aparicao.
+    map<string, int> getDocs();
 
     private:
 
