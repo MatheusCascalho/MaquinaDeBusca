@@ -17,7 +17,7 @@ class Indice{
     //Cria um Indice Invertido a partir de um e um Diretorio fornecido.
     Indice(Diretorio meuDiretorio);
 
-    //Preenche um Indice Invertido a partir de um Diretorio fornecido.
+    //Preenche um Indice Invertido a partir de um Diretorio do Sumario fornecido.
     void criarIndice(Diretorio meuDiretorio);
 
     //Imprime o Indice Invertido na Tela com todas as suas Palavras,

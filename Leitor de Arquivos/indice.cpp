@@ -16,7 +16,6 @@ Indice::Indice(Diretorio meuDiretorio){
 }
 
 void Indice::criarIndice(Diretorio meuDiretorio){
-    fstream arquivoDoSumario;
 
     acharArquivos(meuDiretorio, this->todosDocumentos_);
     cout << "Iniciando processo de geracao do Indice Invertido a partir do endereco fornecido." << endl;
@@ -61,7 +60,7 @@ void Indice::criarIndice(Diretorio meuDiretorio){
                     }
             }
         }
-        cout << "Leitura de [" << meuDiretorio.lerNome() << "] concluida com sucesso." << endl;
+        cout << "Leitura de [" << meuDiretorio.lerNome() << "] concluida com sucesso.\n" << endl;
         File.close();    
     }
     cout << "O Indice Invertido foi criado com sucesso!." << endl;
@@ -84,10 +83,10 @@ void Indice::imprimirIndiceCompleto() const{
          << "Seguidos do numero de aparicoes em cada um destes documentos" << endl;
 
     system("pause");
-    for (pair<string, ListDocumentos> Par : this->elementos_){
+    for (pair<string, ListDocumentos> Par : this->elementos_){ //Para cada uma das palavras do Indice.
         cout << "[" << Par.first << "] / ";
-        list <string> Documentos = Par.second.retornaLista();
-        for (string Documento : Documentos){
+        list <string> Documentos = Par.second.retornaLista(); //Vai retornar uma lista com todos os Documentos associados a Palavra.
+        for (string Documento : Documentos){ //Para cada um desses Documentos.
             cout << "\t--- ["<< Documento << "] - [" << Par.second.lerOcorrencias(Documento) << "]";
         }
         cout << endl;
