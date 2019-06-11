@@ -33,21 +33,21 @@ void Indice::criarIndice(Diretorio dir){
             cout << i << "  " << Elemento << endl;;
             i++; 
             if (this->elementos_.find(Elemento) == this->elementos_.end()){ //Quando um elemento nao pertence a lista.
-                cout << Elemento << " Nao pertence a lista de elementos, inserindo... " << endl;
+                cout << "[" << Elemento << "] Nao pertence a lista de elementos, inserindo... " << endl;
                 this->inserir(Elemento, arquivoLido); 
-                cout << Elemento << " Inserido com sucesso." << endl;          
+                cout << "[" << Elemento << "] Inserido com sucesso." << endl;          
             } else {
                 if (this->elementos_.find(Elemento)->first == Elemento){ //Se na lista de palavras esta palavra ja apareceu uma vez.
-                    cout << Elemento << " Ja apareceu na lista, verificando arquivo... " << endl;
-                    if(this->acharDoc(Elemento, arquivoLido).first != arquivoLido){ //Se esta palavra ja apareceu no Arquivo aberto.
-                        cout << Elemento << " Ja apareceu " << this->aparicoesDoc(Elemento, arquivoLido) << " vezes em " << arquivoLido
+                    cout << "[" << Elemento << "] Ja apareceu na lista, verificando arquivo... " << endl;
+                    if(this->acharDoc(Elemento, arquivoLido).second != 0){ //Se esta palavra ja apareceu no Arquivo que esta aberto.
+                        cout << "[" << Elemento << "] Ja apareceu " << this->aparicoesDoc(Elemento, arquivoLido) << " vezes em " << arquivoLido
                              << endl << "Incrementando aparicoes..." << endl;
                         this->incrementar(Elemento, arquivoLido); 
-                        cout << "Numero de aparicoes de " << Elemento << " em " << arquivoLido << " incrementado com sucesso." << endl;
-                    } else {// Se esta palavra apareceu neste Arquivo pela primeira vez. NAO FUNCIONA 
-                        cout << Elemento << " Ainda nao apareceu nenhuma vez em " << arquivoLido << "... inserindo..." << endl;
-                        this->inserirDoc(Elemento, arquivoLido);
-                        cout << "Foi registrado que " << Elemento << " apareceu pela primeira vez em " << arquivoLido << endl;
+                        cout << "Numero de aparicoes de [" << Elemento << "] em [" << arquivoLido << "] incrementado com sucesso." << endl;
+                    } else {// Se esta palavra apareceu neste Arquivo pela primeira vez.
+                        cout << "[" << Elemento << "] Ainda nao apareceu nenhuma vez em [" << arquivoLido << "]... inserindo..." << endl;
+                        this->incrementar(Elemento, arquivoLido);
+                        cout << "Foi registrado que [" << Elemento << "] apareceu pela primeira vez em [" << arquivoLido << "]" << endl;
                     }
                 }
             }
@@ -75,7 +75,7 @@ void Indice::imprimirIndiceCompleto() const{
         cout << "[" << Par.first << "] / ";
         list <string> Documentos = Par.second.retornaLista();
         for (string Documento : Documentos){
-            cout << "--- ["<< Documento << "] - [" << Par.second.lerOcorrencias(Documento) << "]";
+            cout << "\t--- ["<< Documento << "] - [" << Par.second.lerOcorrencias(Documento) << "]";
         }
         cout << endl;
     }
@@ -84,23 +84,6 @@ void Indice::imprimirIndiceCompleto() const{
 
 }
 
-void Indice::transformaString(string& valor){
-    for (int i = 0; i < valor.size(); i++){
-        valor[i] = tolower(valor[i]);
-
-        if(!(isalpha(valor[i])) ){
-            if (i == 0){
-                valor = string(valor, i+1, valor.size() - 1);
-                i--;
-            } else if (i == valor.size() -1){
-                valor = string(valor, 0, valor.size() - 1);
-                i = i-2; //a subtracao por 2 leva em conta o argumento de +1 do proximo ciclo.
-            } else {
-                valor[i] = ' ';
-            }
-        }
-    }
-}
 
 int Indice::aparicoesDoc(string Elemento, string Documento){
     return this->elementos_.find(Elemento)->second.lerOcorrencias(Documento);

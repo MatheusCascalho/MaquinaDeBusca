@@ -38,6 +38,16 @@ int main(){
     Indice meuIndice(meuDiretorio);
     meuIndice.imprimirIndiceCompleto();
 
+    cout << "Testando leitor de um arquivo:" << endl;
+
+    list<string> palavras;
+    meuDiretorio.setNome("bruno.txt");
+    meuDiretorio.concatenarEndereco();
+    cout << "Lendo todas as palavras de [" << meuDiretorio.lerNomeCompleto() << "]" << endl;;
+    lerUmArquivo(meuDiretorio, palavras);
+    imprimirList(palavras);
+
+
     system("pause");
     return 0;
 }

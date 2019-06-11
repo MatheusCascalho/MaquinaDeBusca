@@ -9,8 +9,6 @@
 
 using std::map;
 
-
-
 class Indice{
     public:
     //Cria um indice invertido vazio.
@@ -24,9 +22,6 @@ class Indice{
 
     //Imprime o Indice Invertido na Tela com todos os seus elementos.
     void imprimirIndiceCompleto() const;
-
-    //Faz com que uma string seja Normalizada no padrao do Indice Invertido.
-    void transformaString(string& Palavra);
 
     //retorna as aparicoes de uma palavra em um documento.
     int aparicoesDoc(string Elemento, string Documento);
@@ -61,8 +56,5 @@ class Indice{
     //Lista com todos os documentos usados para formar este indice.
     list<string> todosDocumentos_;
 };
-
-//Ferramenta que padroniza um string (Maiuscula -> minuscula, Pontuacao-Sinais-> ' ')
-void transformaString(string& valor);
 
 #endif // INDICE_H
