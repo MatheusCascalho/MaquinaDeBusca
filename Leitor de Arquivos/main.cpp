@@ -38,6 +38,21 @@ int main(){
     Indice meuIndice(meuDiretorio);
     meuIndice.imprimirIndiceCompleto();
 
+    cout << "Testando leitor de um arquivo:" << endl;
+
+    list<string> palavras;
+    meuDiretorio.setNome("bruno.txt");
+    meuDiretorio.concatenarEndereco();
+    cout << "Lendo todas as palavras de [" << meuDiretorio.lerNomeCompleto() << "]" << endl;;
+    lerUmArquivo(meuDiretorio, palavras);
+    imprimirList(palavras);
+
+    string pergunta;
+    cout << "Digite uma palavra para saber quantas vezes ela apareceu em todos os documentos: " << endl;
+    cin >> pergunta;
+    cout << "A palavra ["  << pergunta << "] apareceu um total de [" 
+         << meuIndice.aparicoesTotal(pergunta) << "] vezes no seu Indice Invertido." << endl;
+
     system("pause");
     return 0;
 }
