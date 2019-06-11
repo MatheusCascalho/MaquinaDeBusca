@@ -7,24 +7,11 @@ using std::fstream;
 using std::ofstream;
 using std::endl;
 
-
-void transformaString(string& valor){
-    for (int i = 0; i < valor.size(); i++){
-        valor[i] = tolower(valor[i]);
-
-        if(!(isalpha(valor[i])) ){
-            if (i == 0){
-                valor = string(valor, i+1, valor.size() - 1);
-                i--;
-            } else if (i == valor.size() -1){
-                valor = string(valor, 0, valor.size() - 1);
-                i = i-2; //a subtracao por 2 leva em conta o argumento de +1 do proximo ciclo.
-            } else {
-                valor[i] = ' ';
-            }
-        }
-    }
-}
+/*void lerUmString(fstream arquivo, list<string>& lista){
+    string Elemento;
+    arquivo >> Elemento;
+    lista.push_back(Elemento);
+}*/
 
 void acharArquivosPadrao(list<string>& lista){
     Diretorio padrao;
@@ -49,20 +36,6 @@ void acharArquivos(const Diretorio sumario, list<string>& lista){
     }
     if (lista.empty()){ //Se o numero de palavras lidas foi zero, o diretorio nao encontrou arquivos.
         cerr << "Nenhum arquivo encontrado no diretorio selecionado!" << endl;
-    }
-}
-
-void lerUmArquivo(Diretorio endereco, list<string>& palavrasLidas){
-    fstream Arquivo;
-    Arquivo.open(endereco.lerNomeCompleto());
-    string Palavra;
-    while (Arquivo >> Palavra){
-        transformaString(Palavra);
-        palavrasLidas.push_back(Palavra);
-    }
-    Arquivo.close();
-    if (palavrasLidas.size() == 0){
-        cerr << "Nenhuma palavra foi lida" << endl;
     }
 }
 

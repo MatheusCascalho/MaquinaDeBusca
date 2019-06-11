@@ -1,5 +1,3 @@
-//ListDocumentos e o objeto localizado dentro de um Indice Invertido, cada Palavra de um indice invertido
-//e associada a um unico ListDocumentos.
 #ifndef LISTDOCUMENTOS_H
 #define LISTDOCUMENTOS_H
 
@@ -10,8 +8,8 @@
 using std::map;
 using std::pair;
 
-//Esta Classe ira guardar todos os Documentos onde uma Palavra aparece em um Indice Invertido, 
-//assim como o Numero de Aparicoes dela em cada um destes respectivos Documentos.
+//Esta Classe ira guardar todos os documentos onde uma palavra aparece
+//em um indice, assim como o numero de vezes que ela aparece em cada um destes documentos.
 
 class ListDocumentos{
     public:

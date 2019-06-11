@@ -8,70 +8,57 @@ using std::endl;
 using std::pair;
 
 Indice::Indice(){
-    //Propositalmente nao faz nada. para preencher este Indice Invertido vazio use o metodo criarIndice(Diretorio meuDiretorio).
+    //Propositalmente nao faz nada. para preencher o Indice use criarIndice().
 }
 
-Indice::Indice(Diretorio meuDiretorio){
-    this->criarIndice(meuDiretorio);
+Indice::Indice(Diretorio dir){
+    this->criarIndice(dir);
 }
 
-void Indice::criarIndice(Diretorio meuDiretorio){
+void Indice::criarIndice(Diretorio dir){
     fstream arquivoDoSumario;
 
-    acharArquivos(meuDiretorio, this->todosDocumentos_);
-    cout << "Iniciando processo de geracao do Indice Invertido a partir do endereco fornecido." << endl;
-    system("pause");
+    acharArquivos(dir, this->todosDocumentos_);
 
-    for(string arquivoLido : todosDocumentos_){  //Funcao se repete para cada um dos arquivos listados no Sumario fornecido pelo meuDiretorio.
-        meuDiretorio.setNome(arquivoLido);
-        meuDiretorio.concatenarEndereco();
+    for(string arquivoLido : todosDocumentos_){
+        dir.setNome(arquivoLido);
+        dir.concatenarEndereco();
 
-        cout << "Abrindo arquivo [" << meuDiretorio.lerNome() << "]" << endl;
         fstream File;
-        File.open(meuDiretorio.lerNomeCompleto());
-        cout << "[" << meuDiretorio.lerNome() << "] foi aberto com sucesso, iniciando leitura de suas Palavras..." << endl;
-        
-        string Elemento;   
-        while(File >> Elemento){                   
-            transformaString(Elemento); //Normaliza as Palavras lidas.
-
-            if (this->elementos_.find(Elemento) == this->elementos_.end()){ //Condicao que e verdadeira quando uma Palavra nao apareceu na Lista de Palavras do Indice.
-
-                cout << "[" << Elemento << "] Nao pertence a lista de palavras, inserindo... " << endl;
+        File.open(dir.lerNomeCompleto());
+        string Elemento;
+        int i = 1;
+        while(File >> Elemento){        
+            transformaString(Elemento);
+            cout << i << "  " << Elemento << endl;;
+            i++; 
+            if (this->elementos_.find(Elemento) == this->elementos_.end()){ //Quando um elemento nao pertence a lista.
+                cout << Elemento << " Nao pertence a lista de elementos, inserindo... " << endl;
                 this->inserir(Elemento, arquivoLido); 
-                cout << "[" << Elemento << "] Inserido com sucesso./n" << endl;
-
-            } else if(this->elementos_.find(Elemento)->first == Elemento){ //Se na Lista de Palavras esta Palavra ja apareceu pelo menos uma vez.
-
-                    cout << "[" << Elemento << "] Ja apareceu na lista, verificando arquivo... " << endl;
-
-                    if(this->acharDoc(Elemento, arquivoLido).second != 0){ //Se esta Palavra ja apareceu no Arquivo que esta atualmente aberto por esta funcao.
-
-                        cout << "[" << Elemento << "] Ja apareceu " << this->aparicoesDoc(Elemento, arquivoLido) << " vezes em " << arquivoLido
+                cout << Elemento << " Inserido com sucesso." << endl;          
+            } else {
+                if (this->elementos_.find(Elemento)->first == Elemento){ //Se na lista de palavras esta palavra ja apareceu uma vez.
+                    cout << Elemento << " Ja apareceu na lista, verificando arquivo... " << endl;
+                    if(this->acharDoc(Elemento, arquivoLido).first != arquivoLido){ //Se esta palavra ja apareceu no Arquivo aberto.
+                        cout << Elemento << " Ja apareceu " << this->aparicoesDoc(Elemento, arquivoLido) << " vezes em " << arquivoLido
                              << endl << "Incrementando aparicoes..." << endl;
                         this->incrementar(Elemento, arquivoLido); 
-                        cout << "Numero de aparicoes de [" << Elemento << "] em [" << arquivoLido << "] incrementado com sucesso." << endl;
-
-                    } else {//Se esta Palavra acaba de aparecer no arquivo aberto por esta funcao pela primeira vez.
-
-                        cout << "[" << Elemento << "] Ainda nao apareceu nenhuma vez em [" << arquivoLido << "]. inserindo..." << endl;
-                        this->incrementar(Elemento, arquivoLido);
-                        cout << "Foi registrado que [" << Elemento << "] apareceu pela primeira vez em [" << arquivoLido << "]" << endl;
-
+                        cout << "Numero de aparicoes de " << Elemento << " em " << arquivoLido << " incrementado com sucesso." << endl;
+                    } else {// Se esta palavra apareceu neste Arquivo pela primeira vez. NAO FUNCIONA 
+                        cout << Elemento << " Ainda nao apareceu nenhuma vez em " << arquivoLido << "... inserindo..." << endl;
+                        this->inserirDoc(Elemento, arquivoLido);
+                        cout << "Foi registrado que " << Elemento << " apareceu pela primeira vez em " << arquivoLido << endl;
                     }
+                }
             }
         }
-        cout << "Leitura de [" << meuDiretorio.lerNome() << "] concluida com sucesso." << endl;
         File.close();    
     }
-    cout << "O Indice Invertido foi criado com sucesso!." << endl;
 }
 
 void Indice::imprimirIndiceCompleto() const{
-    cout << "Iniciando Processo de impressao completa do Indice Invertido." << endl;
-    system("pause");
-
-    cout << "Imprimindo todos os documentos usados na criacao desse Indice Invertido:" <<endl;
+    cout << "Iniciando Processo de impressao completa do Indice Invertido." << endl
+         << "Imprimindo todos os documentos usados na criacao desse Indice Invertido:" <<endl;
 
     int i = 1;
     for (string Documento : this->todosDocumentos_){
@@ -88,7 +75,7 @@ void Indice::imprimirIndiceCompleto() const{
         cout << "[" << Par.first << "] / ";
         list <string> Documentos = Par.second.retornaLista();
         for (string Documento : Documentos){
-            cout << "\t--- ["<< Documento << "] - [" << Par.second.lerOcorrencias(Documento) << "]";
+            cout << "--- ["<< Documento << "] - [" << Par.second.lerOcorrencias(Documento) << "]";
         }
         cout << endl;
     }
@@ -97,14 +84,31 @@ void Indice::imprimirIndiceCompleto() const{
 
 }
 
+void Indice::transformaString(string& valor){
+    for (int i = 0; i < valor.size(); i++){
+        valor[i] = tolower(valor[i]);
+
+        if(!(isalpha(valor[i])) ){
+            if (i == 0){
+                valor = string(valor, i+1, valor.size() - 1);
+                i--;
+            } else if (i == valor.size() -1){
+                valor = string(valor, 0, valor.size() - 1);
+                i = i-2; //a subtracao por 2 leva em conta o argumento de +1 do proximo ciclo.
+            } else {
+                valor[i] = ' ';
+            }
+        }
+    }
+}
 
 int Indice::aparicoesDoc(string Elemento, string Documento){
     return this->elementos_.find(Elemento)->second.lerOcorrencias(Documento);
 }
 
 int Indice::aparicoesTotal(string Palavra) const{
-    int aparicoes = (this->getIndice().find(Palavra)->second.numTotal(Palavra));
-    return aparicoes;
+    //Ainda vou implementar
+return 0;
 }
 
 void Indice::inserir(string Elemento, string Documento){
@@ -133,3 +137,13 @@ map<string, ListDocumentos> Indice::getIndice() const{
 list<string> Indice::getTodosDocumentos() const{
     return this->todosDocumentos_;
 }
+
+/*
+void imprimirIndice(const map<string,int> Map){
+    if(Map.begin()==Map.end())cout<<"O indice invertido fornecido esta vazio";
+    for (auto ListDocumentos=Map.begin();ListDocumentos!=Map.end();ListDocumentos++){
+        cout <<"Palavra: ["<<ListDocumentos->first
+             <<"] - Quantidade de repeticoes: ["<< ListDocumentos->second << "].\n" << endl;
+    }
+}
+*/

@@ -1,14 +1,14 @@
 #include "diretorio.h"
 
-Diretorio::Diretorio(){ //O construtor padrao de um Diretorio por default aponta para o Sumario.
+Diretorio::Diretorio(){
     prefixo_ = "Diretorio\\\\";
     nomeArquivo_ = "Sumario.txt";
     concatenarEndereco();
 }
 
-Diretorio::Diretorio(string Endereco, string Nome){
-    prefixo_ = Endereco;
-    nomeArquivo_ = Nome;
+Diretorio::Diretorio(string E, string N){
+    prefixo_ = E;
+    nomeArquivo_ = N;
     concatenarEndereco();
 }
 
@@ -24,12 +24,12 @@ string Diretorio::lerNomeCompleto() const{
     return nomeCompleto_;
 }
 
-void Diretorio::setNome(string Nome){
-    nomeArquivo_ = Nome;
+void Diretorio::setNome(string S){
+    nomeArquivo_ = S;
 }
 
-void Diretorio::setEndereco(string Endereco){
-    prefixo_ = Endereco;
+void Diretorio::setEndereco(string S){
+    prefixo_ = S;
 }
 
 void Diretorio::concatenarEndereco(){

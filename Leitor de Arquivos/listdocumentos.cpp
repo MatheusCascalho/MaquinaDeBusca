@@ -36,15 +36,7 @@ bool ListDocumentos::operator<<(ListDocumentos X){
 }
 
 pair <string,int> ListDocumentos::acharDoc(string Documento){
-    if (this->documentos_.find(Documento) != this->documentos_.end()){ //So vai retornar o par se este documento ja apareceu.
-        return *(this->documentos_.find(Documento));
-    } else { //Ira inserir este novo documento antes de retornar o seu par, por razoes de erro em caso de .find(Documento) nao achar nada.
-        this->documentos_.insert(pair<string,int>(Documento,0)); //Esta inclusao faz com que o numero de aparicoes seja 0, por razoes de teste.
-        return *(this->documentos_.find(Documento));
-    }
-    //Logo, ao usar a funcao acharDoc(string Documento), um par<string,int> correspondente sempre existe em documentos_
-    //ja que em caso negativo um novo par e inserido. A unica diferenca e que apos o uso do metodo acharDoc, um documento
-    //que nao apareceu nenhuma vez tem como numero de aparicoes 0 por default gracas a este metodo.
+    return *(documentos_.find(Documento));
 }
 
 void ListDocumentos::inserir(string Documento){
@@ -52,5 +44,7 @@ void ListDocumentos::inserir(string Documento){
 }
 
 void ListDocumentos::incrementar(string Documento){
+    cout << "incrementando documento. Antes: " << this->documentos_.find(Documento)->second;
     this->documentos_.find(Documento)->second++;
+    cout << " - Depois: " << this->documentos_.find(Documento)->second << std::endl;
 }

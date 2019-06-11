@@ -7,38 +7,38 @@ using std::string;
 
 class Diretorio{
     public:
-        //Construtor de um Diretorio Padrao.
+        //Construtor de um diretorio padrao.
         Diretorio();
 
-        //Construtor de um Diretorio com um Endereco e um Nome.
-        Diretorio(string Endereco, string Nome);
+        //Construtor de um diretorio com endereco E e nome de arquivo N.
+        Diretorio(string E, string N);
 
-        //Retorna o Nome que esta gravado em um Diretorio selecionado.
+        //Retorna o nome do arquivo selecionado.
         string lerNome() const;
 
-        //Retorna o nome do Endereco que esta gravado no Diretorio selecionado.
+        //Retorna o endereco selecionado.
         string lerEndereco() const;
 
-        //Retorna o Nome Completo do Diretorio selecionado.
+        //Retorna o nome completo do Diretorio.
         string lerNomeCompleto() const;
 
-        //Faz com que Palavra seja o novo Nome do Diretorio selecionado.
-        void setNome(string Palavra);
+        //Faz com que S seja o novo nome do arquivo.
+        void setNome(string S);
 
-        //Faz com que Palavra seja o novo Endereco do Diretorio selecionado.
-        void setEndereco(string Palavra);
+        //Faz com que S seja o novo endereco do arquivo.
+        void setEndereco(string S);
 
-        //Use esta funcao para concatenar Nome e Endereco de um diretorio, gerando um Nome Completo.
+        //Use esta funcao para contatenar o prefixo com o nome do arquivo.
         void concatenarEndereco();
 
     private:
-        //O Endereco do diretorio onde esta localizado o arquivo (Conta a partir do diretorio onde esta localizado este executavel).
+        //O endereco do diretorio do arquivo (Conta a partir do diretorio onde esta localizado este executavel).
         string prefixo_;
 
-        //Nome do arquivo gravado em um Diretorio.
+        //Nome do arquivo que sera lido.
         string nomeArquivo_;
 
-        //Caminho composto por Endereco e Nome de um arquivo.
+        //Caminho composto por endereco e nome do arquivo.
         string nomeCompleto_;
 };
 
