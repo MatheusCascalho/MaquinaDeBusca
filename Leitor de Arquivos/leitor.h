@@ -7,21 +7,21 @@
 
 using std::list;
 
-//Recebe uma lista vazia e a preenche com todos os nomes de arquivos encontrados no sumario do construtor padrao de Diretorio.
+//Recebe uma Lista Vazia e a preenche com todos os Nomes de Arquivos encontrados no Sumario do Construtor Padrao de Diretorio.
 void acharArquivosPadrao(list<string>& lista);
 
-//PRECONDICAO: O diretorio deve ter a variavel privada nomeCompleto != de um valor nulo.
-//Recebe um diretorio com o endereco do sumario e uma lista vazia, preenchendo-a com os nomes de arquivos lidos.
+//Recebe um Diretorio com o Endereco do Sumario e uma lista vazia, preenchendo-a com os Nomes de Arquivos lidos.
+//PRECONDICAO: O Diretorio deve ter a variavel privada nomeCompleto != de um valor nulo.
 void acharArquivos(Diretorio sumario, list<string>& lista);
 
-//Esta funcao recebe o diretorio concatenado de um arquivo, e preenche a lista palavrasLidas com suas palavras normalizadas e sem repeticao.
+//Esta funcao recebe o Diretorio Concatenado de um arquivo, e preenche a lista palavrasLidas com todas as suas palavras normalizadas.
 void lerUmArquivo(Diretorio endereco, list<string>& palavrasLidas);
 
-//Recebe o local onde estao os arquivos, uma lista com o nome destes arquivos e cria um novo 
-//arquivo com o nome fornecido para preenche-lo com todas as palavras lidas de todos os arquivos da lista.
+//Recebe o Diretorio onde localizam-se arquivos, uma Lista com o nome dos arquivos a serem lidos e um Nome de Arquivo,
+//Esta funcao vai ler todos as palavras em todos os arquivos, e grava-las em um Novo Arquivo criado que tem como nome o Nome de Arquivo fornecido.
 void lerArquivos(Diretorio local, list<string>& arquivosPLer, string nome);
 
-//Ferramenta que padroniza um string (Maiuscula -> minuscula, Pontuacao-Sinais-> ' ')
+//Ferramenta que padroniza um string para o modelo necessario para um Indice. (Maiuscula -> minuscula, Pontuacao-Sinais-> ' ')
 void transformaString(string& valor);
 
 #endif //LEITOR_H
