@@ -15,12 +15,10 @@
 #include <math.h>
 #include "Leitor de Arquivos/indice.h"
 
-namespace BUSCA
-{
-    class expressao_busca{
+    class Busca{
     public:
         //construtor
-        expressao_busca(string e);
+        Busca(string e);
 
         //retorna a expressao de busca
         string expBusca();
@@ -39,51 +37,32 @@ namespace BUSCA
 
         //determina o peso de um documento no eixo p. w(d, p)
         double coordenadaDocsNaPalavra(Indice i, string p);
+        
+        //retorna a similaridade entre um documento d e uma expressão de busca q (do tipo string)
+        //double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
+        double similaridade(Indice i, Diretorio c);
 
+        //Retorna o ranking de documentos
+        std::map<double, string> rankingCosseno(Diretorio c, Indice i);
+
+        //Mapa de coordenadas. Representa uma tabela onde temos os documentos e expressões de busca
+        //nas colunas e as palavras do vocabulário nas linhas. Cada celula da tabela representa a o peso de uma 
+        //paralavra em um documento
+        std::map<string, std::vector<double>>  mapaCoordenada(Indice i);
 
  
-    protected:
-        //Frequencia do termo
-        //MUDAR ISSO PARA A CLASSE PALAVRA
-        //double tf_;
-
-        //inverso da frequencia nos documento
-        //MUDAR ISSO PARA A CLASSE PALAVRA
-        //double idf_;
-
+    private:
         //expressao propriamente dita
         string exp_;
 
         //representação da expressão de busca como um vetor
-        //IMPLEMENTAR!!!!
         std::vector<string> vetExp_;
 
-        friend class teste;
+        //ordenação dos documentos
+        std::map<double, string> ordemDocumentos_;
 
     };
 
-    class ranking{
-        public:
-            //construtor
-            ranking();
-
-            //retorna a similaridade entre um documento d e uma expressão de busca q (do tipo string)
-            //double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
-            double similaridade(expressao_busca q, Indice i, Diretorio c);
-       
-            //Retorna o ranking de documentos
-            std::map<double, string> rankingCosseno(Diretorio c, expressao_busca q, Indice i);
-
-            //Mapa de coordenadas. Representa uma tabela onde temos os documentos e expressões de busca
-            //nas colunas e as palavras do vocabulário nas linhas. Cada celula da tabela representa a o peso de uma 
-            //paralavra em um documento
-            std::map<string, std::vector<double>>  mapaCoordenada(Indice i);
-        private:
-            //ordenação dos documentos
-            std::vector<string> ordemDocumentos_;
-    };
-
-} // namespace BUSCA
 
 
 #endif //BUSCA_H
