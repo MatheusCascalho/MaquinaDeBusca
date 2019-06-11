@@ -7,12 +7,6 @@ using std::fstream;
 using std::ofstream;
 using std::endl;
 
-/*void lerUmString(fstream arquivo, list<string>& lista){
-    string Elemento;
-    arquivo >> Elemento;
-    lista.push_back(Elemento);
-}*/
-
 
 void transformaString(string& valor){
     for (int i = 0; i < valor.size(); i++){
