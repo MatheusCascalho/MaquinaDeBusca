@@ -103,8 +103,8 @@ int Indice::aparicoesDoc(string Elemento, string Documento){
 }
 
 int Indice::aparicoesTotal(string Palavra) const{
-    //Ainda vou implementar
-    return 0;
+    int aparicoes = (this->getIndice().find(Palavra)->second.numTotal(Palavra));
+    return aparicoes;
 }
 
 void Indice::inserir(string Elemento, string Documento){
