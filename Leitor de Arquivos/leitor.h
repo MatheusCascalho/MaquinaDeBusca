@@ -14,6 +14,9 @@ void acharArquivosPadrao(list<string>& lista);
 //PRECONDICAO: O Diretorio deve ter a variavel privada nomeCompleto != de um valor nulo.
 void acharArquivos(Diretorio sumario, list<string>& lista);
 
+//Esta funcao recebe o Diretorio Concatenado de um arquivo, e preenche a lista palavrasLidas com todas as suas palavras normalizadas.
+void lerUmArquivo(Diretorio endereco, list<string>& palavrasLidas);
+
 //Recebe o Diretorio onde localizam-se arquivos, uma Lista com o nome dos arquivos a serem lidos e um Nome de Arquivo,
 //Esta funcao vai ler todos as palavras em todos os arquivos, e grava-las em um Novo Arquivo criado que tem como nome o Nome de Arquivo fornecido.
 void lerArquivos(Diretorio local, list<string>& arquivosPLer, string nome);
