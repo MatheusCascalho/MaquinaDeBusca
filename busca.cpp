@@ -9,13 +9,14 @@
 
 //using namespace std;
 using namespace BUSCA;
+using namespace std;
 
 expressao_busca::expressao_busca(string e){
     exp_ = e;
 
     int primeiraLetra = 0; //posição da primeira letra de uma palavra
     string palavra;
-    for (int i = 0; i < strlen(e); i++){
+    for (int i = 0; i < strlen(e.c_str()); i++){
         if (e[i]==' '){
             palavra = e.substr(primeiraLetra, i - 1);
             transformaString(palavra); //normaliza a palavra
@@ -29,8 +30,8 @@ string expressao_busca::expBusca(){
     return exp_;
 }
 
-std::vector<Palavra> expressao_busca::palavrasExpBusca(){
-    return vetExp_;
+std::vector<string> expressao_busca::palavrasExpBusca(){
+    //return vetExp_;
 }
 
 double expressao_busca::tf(string p){
@@ -43,13 +44,13 @@ double expressao_busca::tf(string p){
     return tf;
 }
 
-double expressao_busca::tfmax(indice i){
+double expressao_busca::tfmax(Indice i){
     double tfmax = 0;
     map<string, ListDocumentos> ind = i.getIndice();
     map<string, ListDocumentos>::iterator it;
     for(it = ind.begin(); it != ind.end(); it++){
         map<string, int>::iterator itInterno;
-        list<string, int> documentos = it->second.retornaLista();
+        map<string, int> documentos = it->second.getDocs();
         for (itInterno = documentos.begin(); itInterno != documentos.end(); itInterno++){
             if (itInterno->second > tfmax) tfmax = itInterno->second;
         }
@@ -59,9 +60,9 @@ double expressao_busca::tfmax(indice i){
 }
 
 double expressao_busca::idf(string p, Indice i){
-    string palavra = transformaString(p);
-    int qtdDocs = i.qtdDocs();
-    int ondePOcorre = i.getIndice().find(palavra)->second.retornaLista().size();
+    transformaString(p);
+    int qtdDocs = i.getTodosDocumentos().size();
+    int ondePOcorre = i.getIndice().find(p)->second.retornaLista().size();
 
     double idf = log2(qtdDocs/ondePOcorre);
 
@@ -79,36 +80,40 @@ double expressao_busca::coordenadaDocsNaPalavra(Indice i, string p)
 ranking::ranking(){
     ///////////INCOMPLETO!!!!!!!!!!
 }
-double ranking::similaridade(Documento d, expressao_busca q, Indice i, diretorio c){
+/*
+double ranking::similaridade(expressao_busca q, Indice i, Diretorio c){
     double num = 0;
     double coordenadaDocumento = 0, coordenadaExpressao = 0;
     double den_fr1 = 0, den_fr2 = 0;
 
     for(int t = 0; t < q.palavrasExpBusca().size(); t++){
-        coordenadaDocumento = d.determinaW(q.palavrasExpBusca()[t], c, i);
-        coordenadaExpressao = q.determinaW(q.palavrasExpBusca()[t], c, i);
+        coordenadaDocumento = q.coordenadaDocsNaPalavra(i, q.expBusca());
+        //(q.palavrasExpBusca()[t], c, i);
+        //coordenadaExpressao = q.determinaW(q.palavrasExpBusca()[t], c, i);
                 
-        double prod = coordenadaDocumento * coordenadaExpressao; 
+        //double prod = coordenadaDocumento * coordenadaExpressao; 
         
         num = num + prod;
-        den_fr1 = den_fr1 + coordenadaDocumento;
-        den_fr2 = den_fr2 + coordenadaExpressao;
+        //den_fr1 = den_fr1 + coordenadaDocumento;
+        //den_fr2 = den_fr2 + coordenadaExpressao;
     }
 
     double den = sqrt(den_fr1 * den_fr1) * sqrt(den_fr2 * den_fr2);
 
     return num/den;
-}
+}*/
 
-std::map<double, Documento> ranking::rankingCosseno(diretorio c, expressao_busca q, Indice ind){
-    std::map<double, Documento> r;
+/*
+std::map<double, string> ranking::rankingCosseno(Diretorio c, expressao_busca q, Indice ind){
+    std::map<double, string> r;
     for (int i = 0; i < c.qtdDocs(); i++){
         double chave = this->similaridade(c.docs()[i], q, ind, c);
         r[chave] = c.docs()[i];
     }
     return r;
-}
+}*/
 
+/*
 double ranking::funcaoHash(Palavra p, Documento d, Indice i){
 
-}
+}*/

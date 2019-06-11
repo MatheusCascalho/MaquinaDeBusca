@@ -8,6 +8,7 @@
 #define BUSCA_H
 
 #include <string>
+#include <string.h>
 #include <map>
 #include <vector>
 #include <list>
@@ -25,7 +26,7 @@ namespace BUSCA
         string expBusca();
 
         //retorna a expressao de busca como vetor
-        std::list<Palavra> palavrasExpBusca();
+        std::vector<string> palavrasExpBusca();
         
         //retorna a frequencia da palavra p na expressão de busca
         double tf(string p);
@@ -34,10 +35,10 @@ namespace BUSCA
         double tfmax(Indice i);
 
         //calcula o inverso da frequencia da palavra p nos documentos de um índice invertido i
-        double idf(string p, Indice i, );
+        double idf(string p, Indice i);
 
-        //determina o peso de cada documento no eixo p. w(d, p)
-        std::list<double> coordenadaDocsNaPalavra(Indice i, string p);
+        //determina o peso de um documento no eixo p. w(d, p)
+        double coordenadaDocsNaPalavra(Indice i, string p);
 
 
  
@@ -55,7 +56,7 @@ namespace BUSCA
 
         //representação da expressão de busca como um vetor
         //IMPLEMENTAR!!!!
-        std::vector<Palavra> vetExp_;
+        std::vector<string> vetExp_;
 
         friend class teste;
 
@@ -68,20 +69,18 @@ namespace BUSCA
 
             //retorna a similaridade entre um documento d e uma expressão de busca q (do tipo string)
             //double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
-            double similaridade(expressao_busca q, Indice i, diretorio c);
+            double similaridade(expressao_busca q, Indice i, Diretorio c);
        
             //Retorna o ranking de documentos
-            std::map<double, Documento> rankingCosseno(diretorio c, expressao_busca q, Indice i);
-
-            
+            std::map<double, string> rankingCosseno(Diretorio c, expressao_busca q, Indice i);
 
             //Mapa de coordenadas. Representa uma tabela onde temos os documentos e expressões de busca
             //nas colunas e as palavras do vocabulário nas linhas. Cada celula da tabela representa a o peso de uma 
             //paralavra em um documento
-            stl::map<string, stl::vector<double>>  mapaCoordenada(Indice i);
+            std::map<string, std::vector<double>>  mapaCoordenada(Indice i);
         private:
             //ordenação dos documentos
-            std::vector<Documento> ordemDocumentos_;
+            std::vector<string> ordemDocumentos_;
     };
 
 } // namespace BUSCA
