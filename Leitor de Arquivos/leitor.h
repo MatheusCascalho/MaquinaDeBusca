@@ -21,4 +21,6 @@ void acharArquivos(Diretorio sumario, list<string>& lista);
 //arquivo com o nome fornecido para preenche-lo com todas as palavras lidas de todos os arquivos da lista.
 void lerArquivos(Diretorio local, list<string>& arquivosPLer, string nome);
 
+void lerUmArquivo(Diretorio endereco, list<string>& palavrasLidas);
+
 #endif //LEITOR_H

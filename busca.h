@@ -17,8 +17,11 @@
 
     class Busca{
     public:
+        //construtor padrão
+        Busca();
+
         //construtor
-        Busca(string e);
+        Busca(string e, Indice i);
 
         //retorna a expressao de busca
         string expBusca();
@@ -36,20 +39,21 @@
         double idf(string p, Indice i);
 
         //determina o peso de um documento no eixo p. w(d, p)
-        double coordenadaDocsNaPalavra(Indice i, string p);
+        std::map<string, double> coordenadaDocsNaPalavra(Indice i, string p);
         
         //retorna a similaridade entre um documento d e uma expressão de busca q (do tipo string)
         //double similaridade(Documento d, expressao_busca q, Indice i, diretorio c);
-        double similaridade(Indice i, Diretorio c);
+        double similaridade(Indice i, string doc);
 
         //Retorna o ranking de documentos
-        std::map<double, string> rankingCosseno(Diretorio c, Indice i);
+        std::map<double, string> rankingCosseno(Indice i);
 
         //Mapa de coordenadas. Representa uma tabela onde temos os documentos e expressões de busca
         //nas colunas e as palavras do vocabulário nas linhas. Cada celula da tabela representa a o peso de uma 
         //paralavra em um documento
         std::map<string, std::vector<double>>  mapaCoordenada(Indice i);
 
+        Busca operator=(Busca q);
  
     private:
         //expressao propriamente dita
