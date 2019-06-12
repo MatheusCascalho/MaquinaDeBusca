@@ -7,14 +7,10 @@
 #ifndef BUSCA_H
 #define BUSCA_H
 
-#include <string>
-#include <string.h>
-#include <map>
 #include <vector>
-#include <list>
 #include <math.h>
 #include "indice.h"
-#include "listdocumentos.h"
+
 
 using std::map;
 

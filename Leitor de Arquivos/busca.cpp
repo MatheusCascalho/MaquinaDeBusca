@@ -1,12 +1,8 @@
-#include <string>
 #include <string.h>
-#include <map>
 #include <vector>
-#include <list>
 #include <math.h>
 #include "indice.h"
 #include "busca.h"
-#include "listdocumentos.h"
 
 using std::string;
 using std::map;
@@ -129,5 +125,3 @@ std::map<double, string> Busca::rankingCosseno(Indice i){
 
     return ranking;
 }
-
-
