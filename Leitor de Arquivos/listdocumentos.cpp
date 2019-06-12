@@ -47,6 +47,10 @@ pair <string,int> ListDocumentos::acharDoc(string Documento){
     //que nao apareceu nenhuma vez tem como numero de aparicoes 0 por default gracas a este metodo.
 }
 
+map<string, int> ListDocumentos::getDocs(){
+    return this->documentos_;
+}
+
 void ListDocumentos::inserir(string Documento){
     this->documentos_.insert(pair<string,int>(Documento,1));
 }
