@@ -14,7 +14,6 @@
 #include <list>
 #include <math.h>
 #include "indice.h"
-#include "listdocumentos.h"
 
 using std::map;
 
@@ -68,8 +67,7 @@ using std::map;
         //ordenação dos documentos
         std::map<double, string> ordemDocumentos_;
 
+        friend class Teste;
     };
-
-
-
+    
 #endif //BUSCA_H
