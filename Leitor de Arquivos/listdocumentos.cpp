@@ -1,8 +1,6 @@
 #include "listdocumentos.h"
 
-using std::pair;
 using std::cout;
-using std::pair;
 
 ListDocumentos::ListDocumentos(){
 }

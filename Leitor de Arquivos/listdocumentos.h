@@ -3,10 +3,13 @@
 #ifndef LISTDOCUMENTOS_H
 #define LISTDOCUMENTOS_H
 
-#include "leitor.h"
+#include <string>
+#include <list>
 #include <map>
 #include <iostream>
 
+using std::list;
+using std::string;
 using std::map;
 using std::pair;
 
