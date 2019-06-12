@@ -1,6 +1,7 @@
 #include "indice.h"
 #include <fstream>
 #include <iostream>
+#include "busca.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ int main(){
     imprimirList(arquivosPLer);
 
 
-    lerArquivos(meuDiretorio, arquivosPLer, nomeSaida);
+
 
     cout << "O arquivo Saida.txt deve ter sido preenchido." << endl;
 
