@@ -57,7 +57,8 @@ double Busca::tfmax(Indice i){
     std::map<string, ListDocumentos>::iterator it;
     for(it = ind.begin(); it != ind.end(); it++){
         map<string, int>::iterator itInterno;
-        map<string, int> documentos = it->second.getDocs();
+        ListDocumentos l = it->second;
+        map<string, int> documentos = l.getDocs();
         for (itInterno = documentos.begin(); itInterno != documentos.end(); itInterno++){
             if (itInterno->second > tfmax) tfmax = itInterno->second;
         }
@@ -85,7 +86,8 @@ std::map<string, double> Busca::coordenadaDocsNaPalavra(Indice i, string p)
     std::map<string, double> coordenadasDocs;
 
     std::map<string, int>::iterator it;
-    std::map<string, int> docsNaPalavra = i.getIndice().find(p)->second.getDocs();
+    ListDocumentos l = i.getIndice().find(p)->second;
+    std::map<string, int> docsNaPalavra = l.getDocs();
     for(it = docsNaPalavra.begin(); it != docsNaPalavra.end(); it++){
         string nomeDoArquivo = it->first;
         double tf = it->second/freqMax;
