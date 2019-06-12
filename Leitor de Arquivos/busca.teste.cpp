@@ -1,5 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include "doctest_fwd.h"
 #include "busca.h"
 
 //bibliiotecas usadas em outrostestes
@@ -34,3 +35,12 @@ class Teste{
             return q.ordemDocumentos_;
         }
 };
+
+TEST_SUITE("Busca"){
+    TEST_CASE("Busca()"){
+        Busca q;
+        CHECK(Teste::expBusca(q) == ' ');
+        //CHECK(Teste::vetExp(q).size() == 0);
+        //CHECK(Teste::ordemDocumentos(q).size() == 0);
+    }
+}
