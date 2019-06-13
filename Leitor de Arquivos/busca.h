@@ -54,8 +54,7 @@ using std::map;
 
         void operator=(Busca& q);
 
-         //Esta funcao e capaz de ler uma frase do teclado e retorna-la como uma unica string.
-        void lerUmaFrase(string &frase);
+         
  
     private:
         //expressao propriamente dita
@@ -69,6 +68,8 @@ using std::map;
 
     };
 
+        //Esta funcao e capaz de ler uma frase do teclado e retorna-la como uma unica string.
+        void lerUmaFrase(string &frase);
 
 
 #endif //BUSCA_H
