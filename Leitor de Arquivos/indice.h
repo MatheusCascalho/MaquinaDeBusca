@@ -56,6 +56,12 @@ class Indice{
 
     //Lista com todos os documentos usados para formar este indice.
     list<string> todosDocumentos_;
+
+    //Insere um novo Elemento na Lista de Palavras de um Indice Invertido de maneira com que ele nao apareca em 
+    //nenhum dos documentos do indice.
+    //Esta funcao so e usada para evitar bugs com Indice::acharDoc(string Elemento, string Documento) no caso da palavra nao
+    //Estar presente no Indice, e o map do mesmo retornar um endereco NULL.
+    void inserirVazio(string Elemento);
 };
 
 #endif // INDICE_H

@@ -31,6 +31,8 @@ class Diretorio{
         //Use esta funcao para concatenar Nome e Endereco de um diretorio, gerando um Nome Completo.
         void concatenarEndereco();
 
+        friend class TesteDiretorio;
+
     private:
         //O Endereco do diretorio onde esta localizado o arquivo (Conta a partir do diretorio onde esta localizado este executavel).
         string prefixo_;

@@ -64,7 +64,6 @@ using std::map;
         //ordenação dos documentos
         std::map<double, string> ordemDocumentos_;
 
-        friend class Teste;
     };
 
 
