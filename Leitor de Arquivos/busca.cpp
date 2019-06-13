@@ -112,12 +112,12 @@ double Busca::similaridade(Indice i, string doc){
     return num/den;
 }
 
-std::map<double, string> Busca::rankingCosseno(Indice i){
-    std::map<double, string> ranking;
+map<double, string> Busca::rankingCosseno(Indice i){
+    map<double, string> ranking;
     list<string> docs = i.getTodosDocumentos();
     for (string arquivo : docs){
         double pos = this->similaridade(i, arquivo);
-        ranking[pos] = arquivo;
+        ranking.insert(std::pair<double, string>(pos,arquivo));
     }
 
     return ranking;
