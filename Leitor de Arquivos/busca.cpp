@@ -121,7 +121,7 @@ std::map<double, string> Busca::rankingCosseno(Indice i){
     return ranking;
 }
 
-void Busca::operator=(Busca& q){
+void Busca::operator=(Busca q){
     exp_ = q.exp_;
     vetExp_ = q.vetExp_;
     ordemDocumentos_ = q.ordemDocumentos_;
