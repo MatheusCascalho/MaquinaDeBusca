@@ -1,7 +1,4 @@
 #include <string.h>
-#include <vector>
-#include <math.h>
-#include "indice.h"
 #include "busca.h"
 
 using std::string;
@@ -124,8 +121,32 @@ std::map<double, string> Busca::rankingCosseno(Indice i){
     return ranking;
 }
 
+<<<<<<< HEAD
 void Busca::operator=(Busca& q){
     exp_ = q.exp_;
     vetExp_ = q.vetExp_;
     ordemDocumentos_ = q.ordemDocumentos_;
+=======
+Busca Busca::operator=(Busca b){
+    return 
+}
+
+void lerUmaFrase(string &frase){
+    int fim = 0;
+    string palavra;
+    list<string> busca;
+    while (!fim){
+        std::cin >> palavra;
+            if (palavra != "."){
+                busca.push_back(palavra);
+            } else {
+                fim = 1;
+            }
+    }
+    std::cout << "A sua busca digitada foi: ";
+    for(string palavra : busca){
+        frase = frase + palavra + " ";
+    }
+    std::cout << frase << std::endl;
+>>>>>>> 06d65cef0c4ca4309acc5bd027d90ada8c2fe157
 }
