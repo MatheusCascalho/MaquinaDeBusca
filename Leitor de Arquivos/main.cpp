@@ -30,7 +30,7 @@ int main(){
          << "Professores: Thiago Ferreira de Noronha, Lucas Victor Silva Pereira.\n" << endl
          << "*--Trabalho Pratico: MAQUINA DE BUSCA--*" << endl
          << "Integrantes do Grupo: " << endl
-         << "Bruno Rafael Martins Alves - "<< endl 
+         << "Bruno Rafael Martins Alves - 2018106753"<< endl 
          << "Joao Vitor David Prates - 2018099382." << endl
          << "Matheus Cascalho dos Santos - 2018014697." << endl;
 
