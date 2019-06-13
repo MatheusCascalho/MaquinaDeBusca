@@ -52,7 +52,7 @@ using std::map;
         //paralavra em um documento
         std::map<string, std::vector<double>>  mapaCoordenada(Indice i);
 
-        Busca operator=(Busca& q);
+        void operator=(Busca& q);
  
     private:
         //expressao propriamente dita

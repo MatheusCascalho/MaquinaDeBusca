@@ -121,14 +121,10 @@ std::map<double, string> Busca::rankingCosseno(Indice i){
     return ranking;
 }
 
-<<<<<<< HEAD
 void Busca::operator=(Busca& q){
     exp_ = q.exp_;
     vetExp_ = q.vetExp_;
     ordemDocumentos_ = q.ordemDocumentos_;
-=======
-Busca Busca::operator=(Busca b){
-    return 
 }
 
 void lerUmaFrase(string &frase){
@@ -148,5 +144,5 @@ void lerUmaFrase(string &frase){
         frase = frase + palavra + " ";
     }
     std::cout << frase << std::endl;
->>>>>>> 06d65cef0c4ca4309acc5bd027d90ada8c2fe157
+
 }
