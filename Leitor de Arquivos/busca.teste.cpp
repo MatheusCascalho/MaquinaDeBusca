@@ -40,7 +40,7 @@ TEST_SUITE("Busca"){
     TEST_CASE("Busca()"){
         Busca q;
         CHECK(Teste::expBusca(q) == ' ');
-        //CHECK(Teste::vetExp(q).size() == 0);
-        //CHECK(Teste::ordemDocumentos(q).size() == 0);
+        CHECK(Teste::vetExp(q).size() == 0);
+        CHECK(Teste::ordemDocumentos(q).size() == 0);
     }
 }

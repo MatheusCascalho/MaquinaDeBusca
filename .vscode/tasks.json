@@ -4,24 +4,19 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "shell",
-            "label": "g++.exe build active file",
-            "command": "C:\\MinGW\\bin\\g++.exe",
+            "label": "echo",
+            "type":"shell",
+            "command": "g++",
             "args": [
-                "-g",
-                "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "C:\\MinGW\\bin"
-            },
-            "problemMatcher": [
-                "$gcc",
-                "diretorio.cpp",
-                "leitor.cpp",
-                "indice.cpp",
-                ""
+                "C:\\Users\\matheus.cascalho\\Documents\\MaquinaDeBusca\\Leitor de Arquivos\\maquina",
+                "-g",
+                "C:\\Users\\matheus.cascalho\\Documents\\MaquinaDeBusca\\Leitor de Arquivos\\main.cpp",
+                "C:\\Users\\matheus.cascalho\\Documents\\MaquinaDeBusca\\Leitor de Arquivos\\diretorio.cpp",
+                "C:\\Users\\matheus.cascalho\\Documents\\MaquinaDeBusca\\Leitor de Arquivos\\leitor.cpp", 
+                "C:\\Users\\matheus.cascalho\\Documents\\MaquinaDeBusca\\Leitor de Arquivos\\listdocumentos.cpp", 
+                "C:\\Users\\matheus.cascalho\\Documents\\MaquinaDeBusca\\Leitor de Arquivos\\indice.cpp", 
+                "C:\\Users\\matheus.cascalho\\Documents\\MaquinaDeBusca\\Leitor de Arquivos\\busca.cpp",                
             ],
             "group": {
                 "kind": "build",
