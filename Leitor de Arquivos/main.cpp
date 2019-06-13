@@ -54,7 +54,7 @@ int main(){
         string pergunta1, pergunta2;
         if(perguntaSouN()){
             while (!numResposta){    
-                cout << "Voce selecionou que quer alterar o seu Sumario." << endl
+                cout << "Menu de alteracao do Sumario:" << endl
                     << "Voce deseja:" << endl 
                     << "Alterar apenas o nome do arquivo Sumario(1)" << endl
                     << "Alterar apenas a localizacao do arquivo Sumario(2)" << endl
@@ -74,8 +74,8 @@ int main(){
 
                     case 2:
                         cout << "Voce escolheu alterar o endereco do arquivo Sumario" << endl
-                            << "Endereco atual: " << Sumario.lerEndereco() << endl
-                            << "Digite o novo endereco (por favor, note que em c++ use quatro \\as para representar uma.): ";
+                             << "Endereco atual: " << Sumario.lerEndereco() << endl
+                             << "Digite o novo endereco (por favor, note que em c++ use quatro \\as para representar uma.): ";
                         cin >> pergunta1;
                             Sumario.setEndereco(pergunta1);
                             Sumario.concatenarEndereco();
@@ -107,7 +107,7 @@ int main(){
                         numResposta = 1;
                     break;
                 }
-                cout << "Deseja retornar para alterar o Sumario novamente?" << endl;
+                cout << "Deseja retornar ao Menu de alteracao do Sumario?" << endl;
                 if(perguntaSouN()){
                     numResposta = 0;
                 }
