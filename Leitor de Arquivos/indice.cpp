@@ -93,7 +93,6 @@ void Indice::imprimirIndiceCompleto() const{
     }
 
     cout << "Indice Invertido foi impresso com sucesso!" << endl;
-
 }
 
 
