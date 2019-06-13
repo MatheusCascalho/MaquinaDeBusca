@@ -14,8 +14,11 @@ list<string> ListDocumentos::retornaLista() const{
 }
 
 int ListDocumentos::lerOcorrencias(string Documento) const{
-    int ocorrencias = documentos_.find(Documento)->second;
-    return ocorrencias;
+    if(documentos_.find(Documento) != documentos_.end()){
+        return documentos_.find(Documento)->second;
+    } else {
+        return 0;
+    }
 }
 
 int ListDocumentos::numTotal() const{

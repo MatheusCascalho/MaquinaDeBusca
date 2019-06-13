@@ -98,12 +98,19 @@ void Indice::imprimirIndiceCompleto() const{
 
 
 int Indice::aparicoesDoc(string Elemento, string Documento){
-    return this->elementos_.find(Elemento)->second.lerOcorrencias(Documento);
+    if(this->elementos_.find(Elemento) != this->elementos_.end()){
+        return this->elementos_.find(Elemento)->second.lerOcorrencias(Documento);
+    } else {
+        return 0;
+    }
 }
 
 int Indice::aparicoesTotal(string Palavra) const{
-    int aparicoes = (this->getIndice().find(Palavra)->second.numTotal());
-    return aparicoes;
+    if(this->elementos_.find(Palavra) != this->elementos_.end()){
+        return this->elementos_.find(Palavra)->second.numTotal();
+    } else {
+        return 0;
+    }
 }
 
 void Indice::inserir(string Elemento, string Documento){
@@ -126,6 +133,7 @@ pair<string, int> Indice::acharDoc(string Elemento, string Documento){
         return (this->elementos_.find(Elemento)->second.acharDoc(Documento));
     } else {
         this->inserirVazio(Elemento);
+        return (this->elementos_.find(Elemento)->second.acharDoc(Documento));
     }
 }
 
