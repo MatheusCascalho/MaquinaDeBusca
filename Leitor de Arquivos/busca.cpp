@@ -5,33 +5,67 @@ using std::string;
 using std::map;
 
 Busca::Busca(){
-    exp_ = ' ';
-}
-Busca::Busca(string e, Indice i){
-    exp_ = e;
 
-    int primeiraLetra = 0; //posição da primeira letra de uma palavra
-    string palavra;
-    for (int i = 0; i < strlen(e.c_str()); i++){
-        if ((e[i]==' ')||(e[i]=='.')||(e[i]==',')||(e[i]=='?')){
-            palavra = e.substr(primeiraLetra, i - 1);
-            transformaString(palavra); //normaliza a palavra
-            vetExp_.push_back(palavra); //armazena a palavra no vetor
-            primeiraLetra = i + 1; //primeira letra da próxima palavra
-        }
-    }
+}
+Busca::Busca(vector<string> e, Indice i){
+
+    vetExp_ = e;
+
+    //////////////////TESTE
+    std::cout << "TESTE CONTRUTOR 1: " << std::endl
+    << " primeira palavra: " << vetExp_[0] << std::endl
+    << " segunda palavra: " << vetExp_[1] << std::endl;
+    /////////////////
 
     for (string palavra: vetExp_){
-        if ((i.getIndice().count(palavra)) == 0) i.inserir(palavra, "expressao");
-        else if (i.getIndice().count(palavra) != 0) i.incrementar(palavra, "expressao");
+            //////////////////TESTE
+            std::cout << "TESTE CONTRUTOR 1.1: " << std::endl
+            << " ENTROU NO FOR - palavra: " << palavra << std::endl;
+            /////////////////
+
+        if(i.aparicoesTotal(palavra) == 0){
+            i.inserir(palavra, "expressao");
+                //////////////////TESTE 
+                std::cout << "TESTE CONTRUTOR 1.2: FOI INSERIDO" << std::endl;
+                /////////////////
+        } else {
+                //////////////////TESTE 
+                std::cout << "TESTE CONTRUTOR 1.3: NAO APARECEU NO INDICE" << std::endl;
+                /////////////////
+            i.acharDoc(palavra, "expressao");
+                //////////////////TESTE 
+                std::cout << "TESTE CONTRUTOR 1.4: CRIOU UM DOCUMENTO" << std::endl;
+                /////////////////
+            i.incrementar(palavra, "expressao");
+                //////////////////TESTE 
+                std::cout << "TESTE CONTRUTOR 1.5: FOI INCREMENTADO" << std::endl;
+                /////////////////
+        }      
     }
+    //////////////////TESTE
+    std::cout << "TESTE CONTRUTOR 2: " << std::endl
+    << " CONSTRUIDO COM SUCESSO! " << std::endl;
+    
+
+    for (string s : vetExp_){
+        std::cout << "Teste: " <<  s << " " << i.aparicoesDoc(s, "expressao") << std::endl;
+    }
+    /////////////////
 }
 
 string Busca::expBusca(){
-    return exp_;
+    string expressao;
+    for (string e : vetExp_){
+        expressao = expressao + e;
+        expressao = expressao + " ";
+    }
+    return expressao;
 }
 
 std::vector<string> Busca::palavrasExpBusca(){
+        //////////////////TESTE OPERATOR
+        std::cout << "TESTE palavrasExpBusca 1: ENTROU!" << std::endl;
+        /////////////////
     return vetExp_;
 }
 
@@ -52,7 +86,7 @@ double Busca::tfmax(Indice i){
         map<string, int>::iterator itInterno;
         map<string, int> documentos = it->second.getDocs();
         for (itInterno = documentos.begin(); itInterno != documentos.end(); itInterno++){
-            if (itInterno->second > tfmax) tfmax = (itInterno->second + 0.0);
+            if (itInterno->second > tfmax) tfmax = (itInterno->second);
         }
     }
 
@@ -61,8 +95,8 @@ double Busca::tfmax(Indice i){
 
 double Busca::idf(string p, Indice i){
     transformaString(p);
-    int qtdDocs = i.getTodosDocumentos().size();
-    int ondePOcorre = i.getIndice().find(p)->second.retornaLista().size();
+    double qtdDocs = i.getTodosDocumentos().size();
+    double ondePOcorre = i.getIndice().find(p)->second.retornaLista().size();
 
     double idf = log2(qtdDocs/ondePOcorre);
 
@@ -95,20 +129,53 @@ double Busca::similaridade(Indice i, string doc){
     double num = 0; 
     double coordenadaDocumento = 0, coordenadaExpressao = 0;
     double den_fr1 = 0, den_fr2 = 0;
+    
+    ////////////////////
+    std::cout << "TESTE SIM 1: EM SIMILARIDADE" << std::endl;
+    ///////////////////
 
-    for(string palavra : this->palavrasExpBusca()){
-        coordenadaDocumento = this->coordenadaDocsNaPalavra(i, palavra).find(doc)->second;
-        coordenadaExpressao = this->coordenadaDocsNaPalavra(i, palavra).find("expressao")->second;
-                
+    for(string palavra : vetExp_){
+            ////////////////////
+            std::cout << "TESTE SIM 2:ENTROU NO FOR" << std::endl;
+            ///////////////////        
+        coordenadaDocumento = (this->coordenadaDocsNaPalavra(i, palavra).find(doc)->second + 0.0);
+            ////////////////////
+            std::cout << "TESTE SIM 3:CALCULOU COORDENADA DOCUMENTO" << std::endl;
+            ///////////////////         
+        coordenadaExpressao = (this->coordenadaDocsNaPalavra(i, palavra).find("expressao")->second + 0.0);
+            ////////////////////
+            std::cout << "TESTE SIM 4:CALCULOU COORDENADA EXPRESSAO" << std::endl;
+            ///////////////////        
         double prod = coordenadaDocumento * coordenadaExpressao; 
-        
+            ////////////////////
+            std::cout << "TESTE SIM 5:CALCULOU O PRIMEIRO PRODUTO - prod: " 
+            << prod << std::endl;
+            ///////////////////
         num = num + prod;
+            ////////////////////
+            std::cout << "TESTE SIM 6: INCREMENTOU O NUMERADOR - num: " 
+            << num << std::endl;
+            /////////////////// 
         den_fr1 = den_fr1 + coordenadaDocumento;
+            ////////////////////
+            std::cout << "TESTE SIM 7: INCREMENTOU O PRODUTO DA PRIMEIRA FRACAO - DEN_FR1: " 
+            << den_fr1 << std::endl;
+            /////////////////// 
         den_fr2 = den_fr2 + coordenadaExpressao;
+            ////////////////////
+            std::cout << "TESTE SIM 8: INCREMENTOU O PRODUTO DA PRIMEIRA FRACAO - DEN_FR2: " 
+            << den_fr2 << std::endl;
+            ///////////////////
     }
 
     double den = sqrt(den_fr1 * den_fr1) * sqrt(den_fr2 * den_fr2);
-
+    ////////////////////////
+    std::cout << "dados: " << std::endl 
+    << "numerador: " << num
+    << "coordenada documento: " << coordenadaDocumento
+    << "coordenada expressao: " << coordenadaExpressao
+    << "denominador: " << den << std::endl;
+    //////////////////////
     return num/den;
 }
 
@@ -124,26 +191,34 @@ map<double, string> Busca::rankingCosseno(Indice i){
 }
 
 void Busca::operator=(Busca b){
-    this->exp_ = b.exp_;
-    this->vetExp_ = b.vetExp_;
-    this->ordemDocumentos_ = b.ordemDocumentos_;
+    //////////////////TESTE OPERATOR
+    std::cout << "TESTE OPERATOR 1: ENTROU" << std::endl;
+    /////////////////
+    for (string palavra : b.vetExp_){
+        //////////////////TESTE OPERATOR
+        std::cout << "TESTE OPERATOR 2: ENTROU NO FOR - palavra: " << palavra << std::endl;
+        /////////////////
+        vetExp_.push_back(palavra);
+    }
+        //////////////////TESTE OPERATOR
+        std::cout << "TESTE OPERATOR 3: vetExp_ ATRIBUIDO COM SUCESSO!" << std::endl;
+        
+        /////////////////
+    
+    //ordemDocumentos_ = b.ordemDocumentos_;
 }
 
-void lerUmaFrase(string &frase){
+void lerUmaFrase(vector<string> &busca){
     int fim = 0;
     string palavra;
-    list<string> busca;
     while (!fim){
         std::cin >> palavra;
             if (palavra != "."){
+                transformaString(palavra);
                 busca.push_back(palavra);
             } else {
                 fim = 1;
             }
     }
     std::cout << "A sua busca digitada foi: ";
-    for(string palavra : busca){
-        frase = frase + palavra + " ";
-    }
-    std::cout << frase << std::endl;
 }

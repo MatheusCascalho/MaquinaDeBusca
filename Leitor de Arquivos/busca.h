@@ -13,6 +13,7 @@
 
 
 using std::map;
+using std::vector;
 
     class Busca{
     public:
@@ -20,7 +21,7 @@ using std::map;
         Busca();
 
         //construtor
-        Busca(string e, Indice i);
+        Busca(vector<string> e, Indice i);
 
         //retorna a expressao de busca
         string expBusca();
@@ -55,8 +56,6 @@ using std::map;
         void operator=(Busca q);
  
     private:
-        //expressao propriamente dita
-        string exp_;
 
         //representação da expressão de busca como um vetor
         std::vector<string> vetExp_;
@@ -67,7 +66,7 @@ using std::map;
     };
 
     //Esta funcao e capaz de ler uma frase do teclado e retorna-la como uma unica string.
-    void lerUmaFrase(string &frase);
+    void lerUmaFrase(vector<string> &busca);
 
 
 

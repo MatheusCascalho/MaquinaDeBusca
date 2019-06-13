@@ -1,11 +1,20 @@
 #include "busca.h"
+#include <map>
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::cerr;
+using std::map;
+using std::vector;
 
 void imprimirList(const list<string> lista){
+    for (string E : lista){
+        cout << E << endl;
+    }
+}
+
+void imprimirVector(const vector<string> lista){
     for (string E : lista){
         cout << E << endl;
     }
@@ -137,8 +146,9 @@ int main(){
             cin >> numResposta;
 
             string frase;
-            Busca minhaBusca;
+            //Busca minhaBusca;
             map<double, string> resposta;
+            vector<string> busca;
             switch(numResposta){
                 case 1:
                     cout << "Voce selecionou manipulacao do Indice Invertido." << endl;
@@ -200,15 +210,29 @@ int main(){
                 break;
 
                 case 2:
+                {
                     cout << "Voce selecionou a funcao de busca." << endl
-                         << "Digite a sua busca(use um espaco seguido de um ponto para indicar que finalizou): ";
-                    cin >> frase;
-                    cout << "Voce digitou: " << frase << endl;
-                    lerUmaFrase(frase);
-
+                         << "Digite a sua busca(use um espaco seguido de um ponto para indicar que finalizou): ";  
+                    lerUmaFrase(busca);
+                    cout << "frase: " << endl;
+                    imprimirVector(busca);
                     cout << "Iniciando procedimento de Busca" << endl;
-                    minhaBusca = Busca(frase, indiceInvertido);
-                    resposta = minhaBusca.rankingCosseno(indiceInvertido);
+                    Busca query(busca, indiceInvertido);
+                    cout << "TESTE DE FOI CONSTRUIDO MESMO: " << query.palavrasExpBusca()[0] << endl;
+                    cout<< "TESTANDO VETOR EXPBUSCA: "<< query.palavrasExpBusca()[0] <<endl;
+                    map<string, double>::iterator it;
+                    map<string, double> coordenadas = query.coordenadaDocsNaPalavra(indiceInvertido, "a");
+                    for (it = coordenadas.begin(); it != coordenadas.end(); it++){
+                        string arq = it->first;
+                        cout << "Nome do documento: " << it->first
+                            << " e o peso e: " << it->second 
+                            << " tf: "<< indiceInvertido.getIndice().find("a")->second.lerOcorrencias(arq) 
+                            << " idf: " << query.idf("a", indiceInvertido) 
+                            << " similaridade: " << query.similaridade(indiceInvertido, arq)<< endl;
+                    }
+                    
+                    
+                    resposta = query.rankingCosseno(indiceInvertido);
 
                     cout << "A pesquisa retornou" << resposta.size() <<"Documentos. Documentos relacionados: " << endl;
                     for (pair<double, string> par : resposta){
@@ -217,7 +241,9 @@ int main(){
                     cout << "FIM DA PESQUISA" << endl;
                     system("pause");
                     numResposta2 = 1;
-                    numResposta = 0; 
+                    numResposta = 0;
+                }
+                     
                 break;
 
                 case 3:
