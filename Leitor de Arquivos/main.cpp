@@ -1,4 +1,5 @@
 #include "indice.h"
+#include "busca.h"
 #include <fstream>
 #include <iostream>
 
@@ -52,6 +53,19 @@ int main(){
     cin >> pergunta;
     cout << "A palavra ["  << pergunta << "] apareceu um total de [" 
          << meuIndice.aparicoesTotal(pergunta) << "] vezes no seu Indice Invertido." << endl;
+
+    string expressaoBusca;
+    cout << "Digite uma expressao de busca: " << endl;
+    cin >> expressaoBusca;
+
+    Busca q(expressaoBusca, meuIndice);
+    map<double, string> resposta = q.rankingCosseno(meuIndice);
+    cout << "A pesquisa retornou" << resposta.size() <<"Documentos. Documentos relacionados: " << endl;
+    map<double, string>::iterator it;
+    for (it = resposta.begin(); it != resposta.end(); it++){
+          cout << it->second << endl;
+    }
+    cout << "FIM DA PESQUISA" << endl;    
 
     system("pause");
     return 0;
