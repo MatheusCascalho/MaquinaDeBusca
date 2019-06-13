@@ -110,7 +110,7 @@ void Indice::inserir(string Elemento, string Documento){
     pair<string, ListDocumentos> Par;
     Par.first = Elemento;
     Par.second.inserir(Documento);
-    elementos_.insert(Par);
+    this->elementos_.insert(Par);
 }
 
 void Indice::incrementar(string Elemento, string Documento){
@@ -122,7 +122,11 @@ void Indice::inserirDoc(string Elemento, string Documento){
 }
 
 pair<string, int> Indice::acharDoc(string Elemento, string Documento){
-    return (this->elementos_.find(Elemento)->second.acharDoc(Documento));
+    if(this->elementos_.find(Elemento) != elementos_.end()){
+        return (this->elementos_.find(Elemento)->second.acharDoc(Documento));
+    } else {
+        this->inserirVazio(Elemento);
+    }
 }
 
 map<string, ListDocumentos> Indice::getIndice() const{
@@ -131,4 +135,12 @@ map<string, ListDocumentos> Indice::getIndice() const{
 
 list<string> Indice::getTodosDocumentos() const{
     return this->todosDocumentos_;
+}
+
+void Indice::inserirVazio(string Elemento){
+    pair<string, ListDocumentos> Par;
+    Par.first = Elemento;
+    ListDocumentos vazia;
+    Par.second = vazia;
+    this->elementos_.insert(Par);
 }
