@@ -53,8 +53,6 @@ using std::map;
         std::map<string, std::vector<double>>  mapaCoordenada(Indice i);
 
         void operator=(Busca q);
-
-         
  
     private:
         //expressao propriamente dita
@@ -68,8 +66,9 @@ using std::map;
 
     };
 
-        //Esta funcao e capaz de ler uma frase do teclado e retorna-la como uma unica string.
-        void lerUmaFrase(string &frase);
+    //Esta funcao e capaz de ler uma frase do teclado e retorna-la como uma unica string.
+    void lerUmaFrase(string &frase);
+
 
 
 #endif //BUSCA_H
