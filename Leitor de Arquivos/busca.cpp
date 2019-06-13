@@ -52,7 +52,7 @@ double Busca::tfmax(Indice i){
         map<string, int>::iterator itInterno;
         map<string, int> documentos = it->second.getDocs();
         for (itInterno = documentos.begin(); itInterno != documentos.end(); itInterno++){
-            if (itInterno->second > tfmax) tfmax = itInterno->second;
+            if (itInterno->second > tfmax) tfmax = (itInterno->second + 0.0);
         }
     }
 
@@ -81,7 +81,7 @@ std::map<string, double> Busca::coordenadaDocsNaPalavra(Indice i, string p)
     std::map<string, int> docsNaPalavra = i.getIndice().find(p)->second.getDocs();
     for(it = docsNaPalavra.begin(); it != docsNaPalavra.end(); it++){
         string nomeDoArquivo = it->first;
-        double tf = it->second/freqMax;
+        double tf = (it->second + 0.0)/freqMax;
         double w = tf * importanciaDaPalavra;
         coordenadasDocs[nomeDoArquivo] = w;
     }

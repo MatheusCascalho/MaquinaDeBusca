@@ -1,15 +1,46 @@
-//protótipo de testes
-#include "teste.h"
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
+#include "doctest_fwd.h"
+#include "busca.h"
 
-bool teste::teste_construtor("Ola mundo"){
-    bool resultado;
-    if (exp_ == "ola mundo") resultado = true;
-    if (vetExp_ == ["ola", "mundo"]) resultado = true;
-    else resultado = false;
-    return resultado;
-}
+//bibliiotecas usadas em outrostestes
+#include <algorithm>
+#include <iostream>
+#include <limits>
+#include <cmath>
 
-bool teste::teste_tf("casa", expressao_busca("quem casa quer casa")){
-    if (tf("casa") == 2) return true;
-    return false;
+//bibliotecas usadas em busca.cpp
+#include <string>
+#include <string.h>
+#include <map>
+#include <vector>
+#include <list>
+#include <math.h>
+#include "indice.h"
+
+using std::string;
+using std::map;
+using std::list;
+using std::vector;
+
+class Teste{
+    public:
+        static string expBusca(const Busca& q){
+            return q.exp_;
+        }
+        static vector<string> vetExp(const Busca& q){
+            return q.vetExp_;
+        }
+        static map<double, string> ordemDocumentos(const Busca& q){
+            return q.ordemDocumentos_;
+        }
+};
+
+TEST_SUITE("Busca"){
+    TEST_CASE("Busca()"){
+        Busca q;
+        CHECK(Teste::expBusca(q) == ' ');
+        CHECK(Teste::vetExp(q).size() == 0);
+        CHECK(Teste::ordemDocumentos(q).size() == 0);
+    }
 }

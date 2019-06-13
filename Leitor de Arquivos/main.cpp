@@ -202,7 +202,8 @@ int main(){
                 case 2:
                     cout << "Voce selecionou a funcao de busca." << endl
                          << "Digite a sua busca(use um espaco seguido de um ponto para indicar que finalizou): ";
-                    
+                    cin >> frase;
+                    cout << "Voce digitou: " << frase << endl;
                     lerUmaFrase(frase);
 
                     cout << "Iniciando procedimento de Busca" << endl;
