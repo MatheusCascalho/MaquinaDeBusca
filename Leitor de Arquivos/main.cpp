@@ -1,6 +1,4 @@
-#include "indice.h"
-#include <fstream>
-#include <iostream>
+#include "busca.h"
 
 using namespace std;
 
