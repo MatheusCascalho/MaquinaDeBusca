@@ -89,8 +89,7 @@ std::map<string, double> Busca::coordenadaDocsNaPalavra(Indice i, string p)
         coordenadasDocs[nomeDoArquivo] = w;
     }
     return coordenadasDocs; 
-    
-   
+      
 }
 
 
@@ -120,8 +119,13 @@ std::map<double, string> Busca::rankingCosseno(Indice i){
     list<string> docs = i.getTodosDocumentos();
     for (string arquivo : docs){
         double pos = this->similaridade(i, arquivo);
-        ranking[pos] = arquivo;
+        ranking.insert(std::pair<double, std::string>(pos, arquivo));
     }
-
     return ranking;
+}
+
+void Busca::operator=(Busca& q){
+    exp_ = q.exp_;
+    vetExp_ = q.vetExp_;
+    ordemDocumentos_ = q.ordemDocumentos_;
 }
