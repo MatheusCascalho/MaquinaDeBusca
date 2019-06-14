@@ -218,23 +218,23 @@ int main(){
                     imprimirVector(busca);
                     cout << "Iniciando procedimento de Busca" << endl;
                     Busca query(busca, indiceInvertido);
-                    cout << "TESTE DE FOI CONSTRUIDO MESMO: " << query.palavrasExpBusca()[0] << endl;
-                    cout<< "TESTANDO VETOR EXPBUSCA: "<< query.palavrasExpBusca()[0] <<endl;
-                    map<string, double>::iterator it;
-                    map<string, double> coordenadas = query.coordenadaDocsNaPalavra(indiceInvertido, "a");
-                    for (it = coordenadas.begin(); it != coordenadas.end(); it++){
-                        string arq = it->first;
-                        cout << "Nome do documento: " << it->first
-                            << " e o peso e: " << it->second 
-                            << " tf: "<< indiceInvertido.getIndice().find("a")->second.lerOcorrencias(arq) 
-                            << " idf: " << query.idf("a", indiceInvertido) 
-                            << " similaridade: " << query.similaridade(indiceInvertido, arq)<< endl;
-                    }
+                    // cout << "TESTE DE FOI CONSTRUIDO MESMO: " << query.palavrasExpBusca()[0] << endl;
+                    // cout<< "TESTANDO VETOR EXPBUSCA: "<< query.palavrasExpBusca()[0] <<endl;
+                    // map<string, double>::iterator it;
+                    // map<string, double> coordenadas = query.coordenadaDocsNaPalavra(indiceInvertido, "a");
+                    // for (it = coordenadas.begin(); it != coordenadas.end(); it++){
+                    //     string arq = it->first;
+                    //     cout << "Nome do documento: " << it->first
+                    //         << " e o peso e: " << it->second 
+                    //         << " tf: "<< indiceInvertido.getIndice().find("a")->second.lerOcorrencias(arq) 
+                    //         << " idf: " << query.idf("a", indiceInvertido) << endl
+                    //         << " similaridade: " << query.similaridade(indiceInvertido, arq)<< endl;
+                    // }
                     
                     
                     resposta = query.rankingCosseno(indiceInvertido);
 
-                    cout << "A pesquisa retornou" << resposta.size() <<"Documentos. Documentos relacionados: " << endl;
+                    cout << "A pesquisa retornou " << resposta.size() <<" Documentos. Documentos relacionados: " << endl;
                     for (pair<double, string> par : resposta){
                             cout << par.second << endl;
                     }
